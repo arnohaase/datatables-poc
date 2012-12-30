@@ -24,6 +24,8 @@ public class PersonRestService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public PersonList getPersonList(@PathParam("from") int from, @PathParam("maxNum") int maxNum) {
+        System.out.println("get person list: " + from + "/" + maxNum);
+        
         final PersonList result = new PersonList();
         
         result.setFrom(from);

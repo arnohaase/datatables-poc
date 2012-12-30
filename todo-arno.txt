@@ -7,4 +7,6 @@ todo
 
 * feste Überschriften, feste Spalten
 * Filter mit "<2"
+* 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
+* Anzeige "Daten werden geladen"
 

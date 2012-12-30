@@ -1,0 +1,28 @@
+
+<div class="container">
+<h1>Eine einfache HTML-Tabelle, die einfach alle Personen listet</h1>
+<table>
+  <tr>
+    <th>Vorname</th>
+    <th>Nachname</th>
+    <th>Geschlecht</th>
+    <th>Straße</th>
+    <th>PLZ / Ort</th>
+    <th>Land</th>
+    <th>Sprache</th>
+    <th>Geburtstag</th>
+    <th>Jahreseinkommen</th>
+  </tr>
+  <tr ng-repeat="person in persons">
+    <td>{{person.firstname}}</td>
+    <td>{{person.lastname}}</td>
+    <td>{{person.sex}}</td>
+    <td>{{person.street}}</td>
+    <td>{{person.zip}} {{person.city}}</td>
+    <td>{{person.country}}</td>
+    <td>{{person.locale}}</td>
+    <td>{{person.birthday}}</td>
+    <td>{{person.income}}</td>
+  </tr>  
+</table>
+</div>
