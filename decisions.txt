@@ -1,12 +1,33 @@
 Offen
 -----
 * Berechtigungen?
+* Komponenten-Framework?
+  * Arnos Favorit: keines; jedenfalls kein EJB (--> Lauffähigkeit in Servlet-Engine)
 
 Diskussion
 ----------
 * alle Dateien als utf-8?
+* Einrückung: vier Zeichen, keine Tabs, kein Auto-Formatieren mit Eclipse?
 * ohne server-side session?
-
+* möglichst ohne Datenbank (synthetisch, Literale im Server); wenn dann H2?
+* Build: Maven?
+* ein einziges Eclipse-Projekt für alle Schichten?
 
 Entscheidungen
 --------------
+* Usability prüfen mit Latenzen von einigen Zehntelsekunden bis einer Sekunde
+* Datenstruktur für die Anzeige: "Person"
+  * oid (Primärschlüssel): Long
+  * firstname: String
+  * lastname: String
+  * Adresse: 
+    * street (mit Hausnummer): String
+    * zip: String
+    * city: String
+    * country: String
+  * locale: Locale
+  * birthday: Datum
+  * phone: String
+  * sex: "m" oder "f" (--> Enum)
+  * income (Jahreseinkommen): Dezimalzahl
+  

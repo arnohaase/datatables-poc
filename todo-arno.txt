@@ -1,0 +1,6 @@
+Stichkpunktsammlung für Arno
+
+todo
+----
+* feste Überschriften, feste Spalten
+* Filter mit "<2
