@@ -1,6 +1,10 @@
 Stichkpunktsammlung für Arno
+============================
 
 todo
 ----
+* Servlet-Filter mit Latenzzeit
+
 * feste Überschriften, feste Spalten
-* Filter mit "<2
+* Filter mit "<2"
+

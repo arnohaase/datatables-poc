@@ -5,7 +5,9 @@ Offen
   * Arnos Favorit: keines; jedenfalls kein EJB (--> Lauffähigkeit in Servlet-Engine)
 * Namen, Kommentare auf englisch oder deutsch?
   * Arnos Favorit: Namen auf englisch --> tauchen teilweise in JavaScript-Code auf - mit 7-Bit-ASCII fühle ich mich da sicherer
-
+* Repräsentation eines Datums (Geburtstag)
+  * Arnos Favorit: eigener, spezieller Datumstyp ("DateDay" o.ä.)
+  
 Diskussion
 ----------
 * alle Dateien als utf-8?
