@@ -1,0 +1,12 @@
+Offen
+-----
+* Berechtigungen?
+
+Diskussion
+----------
+* alle Dateien als utf-8?
+* ohne server-side session?
+
+
+Entscheidungen
+--------------
