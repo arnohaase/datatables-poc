@@ -3,7 +3,9 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
-* Filter mit "<2"
+* sortieren
+* filtern
+* Filter: Eintrag in Filter-Feld mit "<2"
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
-
+* Datum und Einkommen: formatieren
