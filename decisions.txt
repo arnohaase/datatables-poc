@@ -14,7 +14,6 @@ Diskussion
 * Einrückung: vier Zeichen, keine Tabs, kein Auto-Formatieren mit Eclipse?
 * ohne server-side session?
 * möglichst ohne Datenbank (synthetisch, Literale im Server); wenn dann H2?
-* Build: Maven?
 * ein einziges Eclipse-Projekt für alle Schichten?
 
 Entscheidungen
