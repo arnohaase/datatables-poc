@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 
 public class LatencyServletFilter implements Filter {
-    public static final int LATENCY_MILLIS = 300; //TODO make this configurable
+    public static final int LATENCY_MILLIS = 600; //TODO make this configurable
     
     private static final Logger log = Logger.getLogger(LatencyServletFilter.class);
     
