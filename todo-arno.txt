@@ -3,10 +3,14 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
-* Paging
 * sortieren
 * filtern
+* in-place Editieren
+  * Dirty-Markierung je Zeile
+  * Dirty-Markierung je Feld
+  * 'n geänderte Datensätze'
+  * Beim Klicken in ein Feld: Anzeige gegen Edit-Control austauschen
 * Filter: Eintrag in Filter-Feld mit "<2"
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
-* Datum und Einkommen: formatieren
+* Zeilen alternierend hinterlegen

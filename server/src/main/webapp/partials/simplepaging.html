@@ -2,7 +2,7 @@
 <h1>Prefetch, Paging im Browser</h1>
 
 <div class="row well">
-  <div class="span4">
+  <div class="span3">
     <select ng-model="rowsPerPage" ng-options="r for r in [10, 20, 50]"></select>
   </div>
   <div class="span3">
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<table>
+<table class="person">
   <tr>
     <th>Vorname</th>
     <th>Nachname</th>
@@ -31,12 +31,12 @@
   <tr ng-repeat="person in persons | paged:offset:rowsPerPage">
     <td>{{person.firstname}}</td>
     <td>{{person.lastname}}</td>
-    <td>{{person.sex}}</td>
+    <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
     <td>{{person.street}}</td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td>{{person.country}}</td>
-    <td>{{person.locale}}</td>
-    <td>{{person.birthday}}</td>
-    <td>{{person.income}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/>{{person.country}}</td>
+    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
   </tr>  
 </table>

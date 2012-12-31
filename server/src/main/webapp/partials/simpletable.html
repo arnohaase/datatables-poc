@@ -1,6 +1,6 @@
 
 <h1>Eine einfache HTML-Tabelle</h1>
-<table>
+<table class="person">
   <tr>
     <th>Vorname</th>
     <th>Nachname</th>
@@ -15,12 +15,12 @@
   <tr ng-repeat="person in persons">
     <td>{{person.firstname}}</td>
     <td>{{person.lastname}}</td>
-    <td>{{person.sex}}</td>
+    <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
     <td>{{person.street}}</td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td>{{person.country}}</td>
-    <td>{{person.locale}}</td>
-    <td>{{person.birthday}}</td>
-    <td>{{person.income}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/>{{person.country}}</td>
+    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
   </tr>  
 </table>
