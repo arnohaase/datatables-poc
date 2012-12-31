@@ -18,4 +18,14 @@ angular.module('datatableFilters', [])
     
     return result;
   };
+})
+.filter('paged', function() { // returns a 'page' out of an array
+  return function(arr, offset, maxSize) {
+	var result = [];
+	var i=0;
+	for (i=offset; i<offset+maxSize && i<arr.length; i++) {
+	  result.push(arr[i]);
+	}
+	return result;
+  }
 });

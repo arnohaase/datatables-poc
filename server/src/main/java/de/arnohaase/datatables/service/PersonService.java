@@ -12,7 +12,6 @@ public class PersonService {
         return 1000;
     }
     
-    
 	public List<Person> findPersons(int offset, int maxNum) {
 		final List<Person> result = new ArrayList<Person>();
 		

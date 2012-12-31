@@ -3,6 +3,7 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
+* Paging
 * sortieren
 * filtern
 * Filter: Eintrag in Filter-Feld mit "<2"
