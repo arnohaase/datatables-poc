@@ -42,6 +42,9 @@ angular.module('datatableFilters', [])
     if(input === 'en_US') {
     	return 'img/flags/us.png';
     }
+    if(input === 'en_AU') {
+    	return 'img/flags/au.png';
+    }
     if(input === 'fr_FR') {
     	return 'img/flags/fr.png';
     }
@@ -55,6 +58,9 @@ angular.module('datatableFilters', [])
 		}
 		if(input === 'Great Britain') {
 			return 'img/flags/gb.png';
+		}
+		if(input === 'France') {
+			return 'img/flags/fr.png';
 		}
 		return 'img/flags/ao.png';
 	}

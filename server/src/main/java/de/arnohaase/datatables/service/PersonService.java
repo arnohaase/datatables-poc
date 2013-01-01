@@ -24,7 +24,11 @@ public class PersonService {
 		    p.setStreet("Straße " + i);
 		    p.setZip("12345");
 		    p.setCity("Stadt " + i);
-		    p.setCountry(i%2 == 0 ? "Deutschland" : "Great Britain");
+		    switch(i%3) {
+		    case 0: p.setCountry("Deutschland");break;
+		    case 1: p.setCountry("Great Britain");break;
+		    case 2: p.setCountry("France");break;
+		    }
 		    p.setLocale(getLocale(i));
 		    p.setBirthday(String.format("%4d-%02d-%02d", 1960+i%30, i%12 + 1, i%10 + 10));
 		    p.setSex(i%4 < 2 ? Sex.m : Sex.f);
@@ -37,11 +41,12 @@ public class PersonService {
 	}
 	
 	private String getLocale(int i) {
-	    switch(i%5) {
+	    switch(i%6) {
 	    case 0: return "de_DE";
 	    case 1: return "de_AT";
 	    case 2: return "en_UK";
 	    case 3: return "en_US";
+	    case 4: return "en_AU";
 	    default: return "fr_FR";
 	    }
 	}
