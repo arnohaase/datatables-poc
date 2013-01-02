@@ -59,8 +59,17 @@ function PagingCtrl($scope, $http, $filter) {
 	};
 	$scope.numPages = function() {
       var filtered = $filter('filter')($scope.persons, $scope.searchPerson);
+      filtered = $filter('filter')(filtered, $scope.miscFilters);
 	  return Math.ceil(filtered.length / $scope.rowsPerPage);
 	};
+	
+	$scope.miscFilters = function(p) { // special filters that go beyond simple field matching
+	  var name = (p.zip + " " + p.city).toLowerCase();
+	  if ($scope.searchPersonMisc && $scope.searchPersonMisc.zipCity) {
+        return name.indexOf($scope.searchPersonMisc.zipCity.toLowerCase()) >= 0;
+	  }
+	  return true;
+	}
 	
 	$scope.locales = function() {
 	  var result = [];

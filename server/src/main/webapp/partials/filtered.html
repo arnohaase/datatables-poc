@@ -46,7 +46,7 @@
       </select>
       </td>
     <td style="width:150px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
-    <td style="width:250px;"></td>
+    <td style="width:250px;"><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.zipCity"></td>
     <td style="width:200px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
     <td style="width:100px;">
       <select class="filter" ng-model="searchPerson.locale" style="background: url('{{searchPerson.locale | flagForLocale}}') no-repeat 50% 50%;">
@@ -57,7 +57,7 @@
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
-  <tr ng-repeat="person in persons | filter:searchPerson | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+  <tr ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td>{{person.firstname}}</td>
     <td>{{person.lastname}}</td>
     <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
