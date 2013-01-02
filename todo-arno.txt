@@ -38,4 +38,5 @@ done
 * filtern
   * global
   * je Spalte
+  * mit Comboboxen, auch custom-designten
   

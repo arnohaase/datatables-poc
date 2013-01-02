@@ -21,6 +21,10 @@
   </div>
 </div>
 
+<select style="background: url('img/flags/us.png') no-repeat 5px 8px;padding-left:20px;">
+  <option style="background: url('img/flags/de.png') no-repeat 3px 3px;padding-left:23px;">abc</option>
+</select>
+
 <table class="person">
   <tr>
     <th sortable="firstname" sort-model="personSortModel">Vorname</th>
@@ -38,9 +42,15 @@
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
     <td style="width:100px;"><select class="filter" ng-model="searchPerson.sex" ng-options="s | sexSymbol for s in ['', 'm', 'f']"></select></td>
     <td style="width:150px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
-    <td style="width:200px;"></td>
+    <td style="width:250px;"></td>
     <td style="width:200px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
-    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.locale"></td>
+    <td style="width:100px;">
+      <select class="filter" ng-model="searchPerson.locale" style="background: url('{{searchPerson.locale | flagForLocale}}') no-repeat 50% 50%;">
+        <option value=""></option>
+        <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
+      </select>
+<!--       <input style="background: url('img/flags/au.png') no-repeat 50% 50%;" class="filter" placeholder="Filter" ng-model="searchPerson.locale"> -->
+    </td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
@@ -50,7 +60,7 @@
     <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
     <td>{{person.street}}</td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td><img src="{{person.country | flagForCountry}}"/>{{person.country}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
     <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
     <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>

@@ -48,7 +48,7 @@ angular.module('datatable', [])
     if(input === 'fr_FR') {
     	return 'img/flags/fr.png';
     }
-    return 'img/flags/ao.png';
+    return '';
   }
 })
 .filter('flagForCountry', function() {
