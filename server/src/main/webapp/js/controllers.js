@@ -27,6 +27,19 @@ function PagingCtrl($scope, $http, $filter) {
 		$scope.searchPersonMisc = {};
 	  }
 	});
+	$scope.$watch('combinedName', function(newValue) {
+		if(newValue) {
+		  $('.separateNames').hide();
+		  $('.combinedName').show();
+		  $scope.searchPerson.firstname='';
+		  $scope.searchPerson.lastname='';
+		}
+		else {
+		  $('.separateNames').show();
+		  $('.combinedName').hide();
+		  $scope.searchPersonMisc.name='';
+		}
+	});
 	
 	$http.get('rest/person/list/0/9999999')
 	.success(function(data) {
@@ -71,11 +84,23 @@ function PagingCtrl($scope, $http, $filter) {
 	};
 	
 	$scope.miscFilters = function(p) { // special filters that go beyond simple field matching
-	  var name = (p.zip + " " + p.city).toLowerCase();
-	  if ($scope.searchPersonMisc && $scope.searchPersonMisc.zipCity) {
-        return name.indexOf($scope.searchPersonMisc.zipCity.toLowerCase()) >= 0;
+	  var zipCity = function() {
+        var name = (p.zip + " " + p.city).toLowerCase();
+	    if ($scope.searchPersonMisc && $scope.searchPersonMisc.zipCity) {
+          return name.indexOf($scope.searchPersonMisc.zipCity.toLowerCase()) >= 0;
+	    }
+	    return true;
+	  };
+		
+	  var fullName = function() {
+        var name = (p.firstname + " " + p.lastname).toLowerCase();
+	    if ($scope.searchPersonMisc && $scope.searchPersonMisc.name) {
+          return name.indexOf($scope.searchPersonMisc.name.toLowerCase()) >= 0;
+	    }
+	    return true;
 	  }
-	  return true;
+	  
+	  return zipCity() && fullName();
 	}
 	
 	$scope.locales = function() {

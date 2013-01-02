@@ -21,16 +21,16 @@
     <div class="span3" style="margin-top:4px;">
       <input type="checkbox" ng-model="showFilters" style="margin-top:-6px; padding-top:0;"> Filter anzeigen <p />
       <input type="checkbox" ng-model="combinedName" style="margin-top:-6px; padding-top:0;"> Vor- und Nachnamen gemeinsam<p />
-      <span ng-hide="combinedName">asdf</span>
     </div>
   </div>
 </div>
 
 <table class="person">
   <tr>
-    <th style="width:100px;" sortable="firstname" sort-model="personSortModel">Vorname</th>
-    <th style="width:100px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
-    <th style="width:110px;" sortable="sex" sort-model="personSortModel">{{'m' | sexSymbol}} / {{'f' | sexSymbol}}</th>
+    <th class="separateNames" style="width:100px;" sortable="firstname" sort-model="personSortModel">Vorname</th>
+    <th class="separateNames" style="width:170px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
+    <th class="combinedName"  style="width:286px;" sortable="lastname firstname" sort-model="personSortModel">Name</th>
+    <th style="width:80px;" sortable="sex" sort-model="personSortModel">{{'m' | sexSymbol}} / {{'f' | sexSymbol}}</th>
     <th style="width:150px;" sortable="street" sort-model="personSortModel">Straße</th>
     <th style="width:250px;" sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
     <th style="width:200px;" sortable="country" sort-model="personSortModel">Land</th>
@@ -39,8 +39,9 @@
     <th style="width:100px;" sortable="income" sort-model="personSortModel">Einkommen</th>
   </tr>
   <tr ng-show="showFilters">
-    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
-    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
+    <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td ng-show="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.name"></td>
     <td>
       <select class="filter" ng-model="searchPerson.sex" style="text-align:center;padding-left:13px;">
         <option ng-repeat="s in ['', 'm', 'f']" style="text-align:center;" value="{{s}}">{{s | sexSymbol}}</option>
@@ -59,8 +60,9 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
   <tr ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
-    <td>{{person.firstname}}</td>
-    <td>{{person.lastname}}</td>
+    <td ng-hide="combinedName">{{person.firstname}}</td>
+    <td ng-hide="combinedName">{{person.lastname}}</td>
+    <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
     <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
     <td>{{person.street}}</td>
     <td>{{person.zip}} {{person.city}}</td>
@@ -70,3 +72,5 @@
     <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
   </tr>  
 </table>
+
+
