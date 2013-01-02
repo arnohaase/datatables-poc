@@ -3,7 +3,8 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
-* Einkommen: wird noch lexikalisch sortiert...
+* sortieren:
+  * nach kombinierten / abgleiteten Spalten
 * filtern
   * je Spalte und global
   * Filter: Eintrag in Filter-Feld mit "<2"

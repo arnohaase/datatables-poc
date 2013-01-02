@@ -169,12 +169,23 @@ angular.module('datatable', [])
 			  var result = [];
 			  var i;
 			  for(i=0; i<$scope.sortModel.sortBy.length; i++) {
-				var cur = $scope.sortModel.sortBy[i];
-				if($scope.sortModel.sortAsc[cur]) {
-				  result.push(cur);
-				}
-				else {
-				  result.push('-'+cur);
+				var colKey = $scope.sortModel.sortBy[i];
+				var byComma = colKey.split(',');
+				var j;
+				for (j=0; j<byComma.length; j++) {
+				  var bySpace = byComma[j].split(' ');
+				  var k;
+				  for (k=0; k<bySpace.length; k++) {
+					var cur = bySpace[k];
+					if (cur !== '') {
+                      if($scope.sortModel.sortAsc[colKey]) {
+						result.push(cur);
+					  }
+                      else {
+					    result.push('-'+cur);
+					  }
+					} 
+				  }
 				}
 			  }
 			  
