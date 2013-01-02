@@ -149,41 +149,6 @@ angular.module('datatable', [])
 	return result;
   }
 })
-.directive('dummy-outer', function($compile) {
-  var directiveDefinitionObject = {
-	scope: true,
-	controller: function($scope) {
-	  $scope.outer = [];
-	}
-  }	
-})
-.directive('dummy', function($compile) {
-	var directiveDefinitionObject = {
-	  transclude: true,
-	  scope: true,
-	  controller: function($scope) {
-		$scope.outerBound = $scope.outer;
-		$scope.watch('outer', function(newValue) {
-		  if(newValue) //TODO muss das sein?
-            $scope.outerBound = newValue;
-		});
-	  },
-	  compile: function compile(tElement, tAttrs, transclude) {
-        return {
-	      post: function postLink(scope, element, iAttrs, controller) {
-	    	scope.abc = function() {
-    		  alert('hallo');
-	    	  scope.outerBound.push(9);
-	    	  alert(scope.outerBound);
-	    	};
-	    	var x = $compile('<div ng-click="abc()" ng-transclude>{{outerBound}}</div>', transclude);
-	    	element.replaceWith(x(scope));
-	      }
-	    }
-	  }
-	};
-	return directiveDefinitionObject;
-})
 .directive('sortable', function($compile) {
 	var directiveDefinitionObject = {
 	  transclude: true,
