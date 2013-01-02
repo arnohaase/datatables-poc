@@ -40,7 +40,11 @@
   <tr>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
-    <td style="width:100px;"><select class="filter" ng-model="searchPerson.sex" ng-options="s | sexSymbol for s in ['', 'm', 'f']"></select></td>
+    <td style="width:100px;">
+      <select class="filter" ng-model="searchPerson.sex" style="text-align:center;padding-left:13px;">
+        <option ng-repeat="s in ['', 'm', 'f']" style="text-align:center;" value="{{s}}">{{s | sexSymbol}}</option>
+      </select>
+      </td>
     <td style="width:150px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
     <td style="width:250px;"></td>
     <td style="width:200px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
@@ -49,7 +53,6 @@
         <option value=""></option>
         <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
       </select>
-<!--       <input style="background: url('img/flags/au.png') no-repeat 50% 50%;" class="filter" placeholder="Filter" ng-model="searchPerson.locale"> -->
     </td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
     <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
