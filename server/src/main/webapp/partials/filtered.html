@@ -15,47 +15,48 @@
         <button class="btn" ng-disabled="! hasNextPage()" ng-click="lastPage()">&gt;&gt;</button>
       </div>
     </div>
-    <div class="span3">
-      <input ng-model="searchPerson.$" placeholder="Filtertext" class="input-large search-query"></input>
+    <div class="span3" style="margin-top:4px;">
+      <input ng-show="showFilters" ng-model="searchPerson.$" placeholder="Filtertext" class="input-large search-query"></input>
+    </div>
+    <div class="span3" style="margin-top:4px;">
+      <input type="checkbox" ng-model="showFilters" style="margin-top:-6px; padding-top:0;"> Filter anzeigen <p />
+      <input type="checkbox" ng-model="combinedName" style="margin-top:-6px; padding-top:0;"> Vor- und Nachnamen gemeinsam<p />
+      <span ng-hide="combinedName">asdf</span>
     </div>
   </div>
 </div>
 
-<select style="background: url('img/flags/us.png') no-repeat 5px 8px;padding-left:20px;">
-  <option style="background: url('img/flags/de.png') no-repeat 3px 3px;padding-left:23px;">abc</option>
-</select>
-
 <table class="person">
   <tr>
-    <th sortable="firstname" sort-model="personSortModel">Vorname</th>
-    <th sortable="lastname" sort-model="personSortModel">Nachname</th>
-    <th sortable="sex" sort-model="personSortModel">Geschlecht</th>
-    <th sortable="street" sort-model="personSortModel">Straße</th>
-    <th sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
-    <th sortable="country" sort-model="personSortModel">Land</th>
-    <th sortable="locale" sort-model="personSortModel">Sprache</th>
-    <th sortable="birthday" sort-model="personSortModel">Geburtstag</th>
-    <th sortable="income" sort-model="personSortModel">Einkommen</th>
+    <th style="width:100px;" sortable="firstname" sort-model="personSortModel">Vorname</th>
+    <th style="width:100px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
+    <th style="width:110px;" sortable="sex" sort-model="personSortModel">{{'m' | sexSymbol}} / {{'f' | sexSymbol}}</th>
+    <th style="width:150px;" sortable="street" sort-model="personSortModel">Straße</th>
+    <th style="width:250px;" sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
+    <th style="width:200px;" sortable="country" sort-model="personSortModel">Land</th>
+    <th style="width:100px;" sortable="locale" sort-model="personSortModel">Sprache</th>
+    <th style="width:100px;" sortable="birthday" sort-model="personSortModel">Geburtstag</th>
+    <th style="width:100px;" sortable="income" sort-model="personSortModel">Einkommen</th>
   </tr>
-  <tr>
-    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
-    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
-    <td style="width:100px;">
+  <tr ng-show="showFilters">
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td>
       <select class="filter" ng-model="searchPerson.sex" style="text-align:center;padding-left:13px;">
         <option ng-repeat="s in ['', 'm', 'f']" style="text-align:center;" value="{{s}}">{{s | sexSymbol}}</option>
       </select>
       </td>
-    <td style="width:150px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
-    <td style="width:250px;"><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.zipCity"></td>
-    <td style="width:200px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
-    <td style="width:100px;">
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.zipCity"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
+    <td>
       <select class="filter" ng-model="searchPerson.locale" style="background: url('{{searchPerson.locale | flagForLocale}}') no-repeat 50% 50%;">
         <option value=""></option>
         <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
       </select>
     </td>
-    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
-    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
   <tr ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td>{{person.firstname}}</td>

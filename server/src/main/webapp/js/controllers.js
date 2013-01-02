@@ -20,6 +20,13 @@ function PagingCtrl($scope, $http, $filter) {
 	$scope.rowsPerPage = 10;
 	$scope.offset = 0;
 	$scope.persons = [];
+	$scope.showFilters = true;
+	$scope.$watch('showFilters', function(newValue) {
+	  if(! newValue) {
+		$scope.searchPerson = {};
+		$scope.searchPersonMisc = {};
+	  }
+	});
 	
 	$http.get('rest/person/list/0/9999999')
 	.success(function(data) {

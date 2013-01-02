@@ -149,9 +149,27 @@ angular.module('datatable', [])
 	return result;
   }
 })
+.directive('dummy', function($compile) {
+	var directiveDefinitionObject = {
+//	  template: '<div ng-click="alert(123)" style="background-color:red;" ng-transclude></div>',
+	  transclude: false
+	  ,
+	  compile: function compile(tElement, tAttrs, transclude) {
+        return {
+  	      post: function postLink(scope, element, attrs, controller) {
+  	    	var x = $compile('<div style="background-color:yellow;" ></div>', transclude);
+  	    	var newElement = x(scope);
+  	    	element.replaceWith(newElement);
+  	    	newElement.append(element);
+  	      }
+  	    };
+	  }
+	};
+	return directiveDefinitionObject;
+})
 .directive('sortable', function($compile) {
 	var directiveDefinitionObject = {
-	  transclude: true,
+	  transclude: false,
 	  scope: {
 		sortField: '@sortable',
 		sortModel: '=sortModel'
@@ -243,12 +261,29 @@ angular.module('datatable', [])
 	  compile: function compile(tElement, tAttrs, transclude) {
         return {
 	      post: function postLink(scope, element, attrs, controller) {
-	    	var x = $compile('<th ng-click="sortclick()" ng-transclude></div>', transclude);
+	    	var x = $compile('<th ng-click="sortclick()"></th>', transclude);
 	    	var newElement = x(scope);
+
+	    	// attributes are not transcluded
+            for(var a in attrs) {
+	    	  if (a.indexOf('$')!= 0)
+  	            newElement.attr(a, attrs[a]);
+	    	}
+
+	    	element.replaceWith(newElement);
+	    	
+	    	var childNodes = element[0].childNodes;
+	    	for (var i=0; i<childNodes.length; i++) {
+	    	  newElement.append(childNodes[i]);
+	    	}
+//	    	newElement.append(element);
 	    	
 	    	var imgElement = $compile('<img ng-src="{{sortImg}}"></img>')(scope);
 	    	newElement.append(imgElement);
-	    	element.replaceWith(newElement);
+
+//	    	alert(newElement.html());
+//	    	newElement.append('<img src="img/sort_up.png"></img>');
+//	    	alert(newElement.html());
 	    	
 	    	scope.refresh();
 	      }
