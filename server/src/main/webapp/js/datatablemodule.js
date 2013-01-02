@@ -198,7 +198,24 @@ angular.module('datatable', [])
 		  }
 		  if (! $scope.sortModel.sortAsc) {
 		    $scope.sortModel.sortAsc = {};
-		  }	
+		  }
+		  if (! $scope.sortModel.orderBy) {
+			$scope.sortModel.orderBy = function() {
+			  var result = [];
+			  var i;
+			  for(i=0; i<$scope.sortModel.sortBy.length; i++) {
+				var cur = $scope.sortModel.sortBy[i];
+				if($scope.sortModel.sortAsc[cur]) {
+				  result.push(cur);
+				}
+				else {
+				  result.push('-'+cur);
+				}
+			  }
+			  
+			  return result;
+			}
+		  }
 		};
 
 		var isSorted = function() {

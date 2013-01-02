@@ -3,8 +3,7 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
-* sortieren
-  * auch nach Geburtstag und Einkommen (--> *nicht* nach der gerenderten String-Darstellung!)
+* Einkommen: wird noch lexikalisch sortiert...
 * filtern
   * je Spalte und global
   * Filter: Eintrag in Filter-Feld mit "<2"
@@ -29,4 +28,6 @@ done
   * Datum
   * Einkommen
 * Paging
+* sortieren
+  * auch nach Geburtstag und Einkommen (--> *nicht* nach der gerenderten String-Darstellung!)
   

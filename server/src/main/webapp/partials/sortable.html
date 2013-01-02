@@ -18,17 +18,17 @@
 
 <table class="person">
   <tr>
-    <th>Vorname<img src="img/sort_neutral.png"></img></th>
-    <th>Nachname<img src="img/sort_up.png"></img></th>
-    <th>Geschlecht<img src="img/sort_down.png"></img></th>
+    <th sortable="firstname" sort-model="personSortModel">Vorname</th>
+    <th sortable="lastname" sort-model="personSortModel">Nachname</th>
+    <th sortable="sex" sort-model="personSortModel">Geschlecht</th>
     <th sortable="street" sort-model="personSortModel">Straße</th>
     <th>PLZ / Ort</th>
     <th sortable="country" sort-model="personSortModel">Land</th>
-    <th>Sprache</th>
-    <th>Geburtstag</th>
-    <th>Jahreseinkommen</th>
+    <th sortable="locale" sort-model="personSortModel">Sprache</th>
+    <th sortable="birthday" sort-model="personSortModel">Geburtstag</th>
+    <th sortable="income" sort-model="personSortModel">Jahreseinkommen</th>
   </tr>
-  <tr ng-repeat="person in persons | paged:offset:rowsPerPage">
+  <tr ng-repeat="person in persons | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td>{{person.firstname}}</td>
     <td>{{person.lastname}}</td>
     <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
