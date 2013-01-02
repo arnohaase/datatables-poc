@@ -11,7 +11,12 @@ function SimpleCtrl($scope, $http) {
   });
 }
 
-function SimplePagingCtrl($scope, $http) {
+function PagingCtrl($scope, $http) {
+	$scope.personSortModel = {
+      sortBy: [],
+	  sortAsc: {}
+	};
+	
 	$scope.rowsPerPage = 10;
 	$scope.offset = 0;
 	$scope.persons = [];

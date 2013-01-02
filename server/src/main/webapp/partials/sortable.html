@@ -1,0 +1,42 @@
+
+<h1>Paging und sortierbar</h1>
+
+<div class="row well">
+  <div class="span3">
+    <select ng-model="rowsPerPage" ng-options="r for r in [10, 20, 50]"></select>
+  </div>
+  <div class="span3">
+    <div class="btn-group">
+      <button class="btn" ng-disabled="! hasPrevPage()" ng-click="firstPage()">&lt;&lt;</button>
+      <button class="btn" ng-disabled="! hasPrevPage()" ng-click="prevPage()">&lt;</button>
+      <button class="btn" ng-disabled="true" style="width:7em;text-align:center;">{{curPage()}} / {{numPages()}}</button>
+      <button class="btn" ng-disabled="! hasNextPage()" ng-click="nextPage()">&gt;</button>
+      <button class="btn" ng-disabled="! hasNextPage()" ng-click="lastPage()">&gt;&gt;</button>
+    </div>
+  </div>
+</div>
+
+<table class="person">
+  <tr>
+    <th>Vorname<img src="img/sort_neutral.png"></img></th>
+    <th>Nachname<img src="img/sort_up.png"></img></th>
+    <th>Geschlecht<img src="img/sort_down.png"></img></th>
+    <th sortable="street" sort-model="personSortModel">Straße</th>
+    <th>PLZ / Ort</th>
+    <th sortable="country" sort-model="personSortModel">Land</th>
+    <th>Sprache</th>
+    <th>Geburtstag</th>
+    <th>Jahreseinkommen</th>
+  </tr>
+  <tr ng-repeat="person in persons | paged:offset:rowsPerPage">
+    <td>{{person.firstname}}</td>
+    <td>{{person.lastname}}</td>
+    <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
+    <td>{{person.street}}</td>
+    <td>{{person.zip}} {{person.city}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/>{{person.country}}</td>
+    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
+  </tr>  
+</table>

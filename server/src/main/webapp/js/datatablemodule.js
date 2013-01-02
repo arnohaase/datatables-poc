@@ -1,4 +1,4 @@
-angular.module('datatableFilters', [])
+angular.module('datatable', [])
 .filter('inGroupsOf', function() { // converts an array into an array of arrays
   return function(input, groupSize) {
     var result = [];
@@ -148,4 +148,121 @@ angular.module('datatableFilters', [])
 	}
 	return result;
   }
-});
+})
+.directive('dummy-outer', function($compile) {
+  var directiveDefinitionObject = {
+	scope: true,
+	controller: function($scope) {
+	  $scope.outer = [];
+	}
+  }	
+})
+.directive('dummy', function($compile) {
+	var directiveDefinitionObject = {
+	  transclude: true,
+	  scope: true,
+	  controller: function($scope) {
+		$scope.outerBound = $scope.outer;
+		$scope.watch('outer', function(newValue) {
+		  if(newValue) //TODO muss das sein?
+            $scope.outerBound = newValue;
+		});
+	  },
+	  compile: function compile(tElement, tAttrs, transclude) {
+        return {
+	      post: function postLink(scope, element, iAttrs, controller) {
+	    	scope.abc = function() {
+    		  alert('hallo');
+	    	  scope.outerBound.push(9);
+	    	  alert(scope.outerBound);
+	    	};
+	    	var x = $compile('<div ng-click="abc()" ng-transclude>{{outerBound}}</div>', transclude);
+	    	element.replaceWith(x(scope));
+	      }
+	    }
+	  }
+	};
+	return directiveDefinitionObject;
+})
+.directive('sortable', function($compile) {
+	var directiveDefinitionObject = {
+	  transclude: true,
+	  scope: {
+		sortField: '@sortable',
+		sortModel: '=sortModel'
+	  },
+	  controller: function($scope) {
+		var ensure = function() { 
+	      if (! $scope.sortModel.sortBy) {
+	        $scope.sortModel.sortBy = [];
+		  }
+		  if (! $scope.sortModel.sortAsc) {
+		    $scope.sortModel.sortAsc = {};
+		  }	
+		};
+
+		var isSorted = function() {
+			  var i;
+			  for(i=0; i<$scope.sortModel.sortBy.length; i++) {
+	          if($scope.sortModel.sortBy[i] === $scope.sortField)
+	            return true;
+	          }
+	          return false;
+	        };
+
+		$scope.$watch('sortModel.sortAsc[sortField]', function(newValue) {
+		  refresh();
+		});
+		$scope.$watch('sortModel.sortBy', function(newValue) {
+		  refresh();
+		});
+		
+        var refresh = function() {
+          if(isSorted()) {
+  	        if($scope.sortModel.sortAsc[$scope.sortField])
+  	          $scope.sortImg = "img/sort_down.png";
+  	        else
+  	          $scope.sortImg = "img/sort_up.png";
+          }
+          else {		  
+            $scope.sortImg = "img/sort_neutral.png";
+          }
+        };
+          
+        $scope.sortclick = function() {
+          ensure();
+          
+          if (isSorted()) {
+		    if ($scope.sortModel.sortAsc[$scope.sortField]) {
+		      $scope.sortModel.sortAsc[$scope.sortField] = false;
+		    }
+		  	else {
+  	          $scope.sortModel.sortAsc[$scope.sortField] = true;
+	  	    }
+	  	  }
+	      else {
+            $scope.sortModel.sortBy = [$scope.sortField];
+	  	    $scope.sortModel.sortAsc[$scope.sortField] = true;
+	      }
+	  	};
+	  }
+	  ,
+	  compile: function compile(tElement, tAttrs, transclude) {
+        return {
+	      post: function postLink(scope, element, attrs, controller) {
+	    	var x = $compile('<th ng-click="sortclick()" ng-transclude></div>', transclude);
+	    	var newElement = x(scope);
+	    	
+	    	var imgElement = $compile('<img ng-src="{{sortImg}}"></img>')(scope);
+	    	newElement.append(imgElement);
+	    	element.replaceWith(newElement);
+	    	
+	    	scope.refresh();
+	      }
+	    }
+	  }
+	};
+	
+	return directiveDefinitionObject;	
+})
+;
