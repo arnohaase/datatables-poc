@@ -23,7 +23,6 @@ todo
 * Angular hat dateFilter-Service --> Formatierung?!
 * numPages() == 0 --> 'keine Datensätze' statt Tabelle (und statt '1/0')
 * Layout / Verschönerung
-  * Filter-Controls volle Breite
   * Umgang mit zu breiter Tabelle 
   
 done

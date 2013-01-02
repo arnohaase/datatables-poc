@@ -31,18 +31,18 @@
     <th sortable="country" sort-model="personSortModel">Land</th>
     <th sortable="locale" sort-model="personSortModel">Sprache</th>
     <th sortable="birthday" sort-model="personSortModel">Geburtstag</th>
-    <th sortable="income" sort-model="personSortModel">Jahreseinkommen</th>
+    <th sortable="income" sort-model="personSortModel">Einkommen</th>
   </tr>
   <tr>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.firstname"></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.lastname"></td>
-    <td><select class="input-small" style="height:24px;margin:0;padding:0;" ng-model="searchPerson.sex" ng-options="s | sexSymbol for s in ['', 'm', 'f']"></select></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.street"></td>
-    <td></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.country"></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.locale"></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.birthday"></td>
-    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.income"></td>
+    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
+    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td style="width:100px;"><select class="filter" ng-model="searchPerson.sex" ng-options="s | sexSymbol for s in ['', 'm', 'f']"></select></td>
+    <td style="width:150px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
+    <td style="width:200px;"></td>
+    <td style="width:200px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
+    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.locale"></td>
+    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
+    <td style="width:100px;"><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
   <tr ng-repeat="person in persons | filter:searchPerson | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td>{{person.firstname}}</td>
