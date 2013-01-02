@@ -13,6 +13,7 @@ todo
   * Dirty-Markierung je Feld
   * 'n geänderte Datensätze'
   * Beim Klicken in ein Feld: Anzeige gegen Edit-Control austauschen
+* Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
 * Zeilen alternierend hinterlegen
