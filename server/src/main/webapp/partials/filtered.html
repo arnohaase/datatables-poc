@@ -1,0 +1,58 @@
+
+<h1>sortierbar mit Filtern</h1>
+
+<div class="well">
+  <div class="row-fluid">
+    <div class="span3">
+      <select ng-model="rowsPerPage" ng-options="r for r in [10, 20, 50]"></select>
+    </div>
+    <div class="span3">
+      <div class="btn-group">
+        <button class="btn" ng-disabled="! hasPrevPage()" ng-click="firstPage()">&lt;&lt;</button>
+        <button class="btn" ng-disabled="! hasPrevPage()" ng-click="prevPage()">&lt;</button>
+        <button class="btn" ng-disabled="true" style="width:7em;text-align:center;">{{curPage()}} / {{numPages()}}</button>
+        <button class="btn" ng-disabled="! hasNextPage()" ng-click="nextPage()">&gt;</button>
+        <button class="btn" ng-disabled="! hasNextPage()" ng-click="lastPage()">&gt;&gt;</button>
+      </div>
+    </div>
+    <div class="span3">
+      <input ng-model="searchPerson.$" placeholder="Filtertext" class="input-large search-query"></input>
+    </div>
+  </div>
+</div>
+
+<table class="person">
+  <tr>
+    <th sortable="firstname" sort-model="personSortModel">Vorname</th>
+    <th sortable="lastname" sort-model="personSortModel">Nachname</th>
+    <th sortable="sex" sort-model="personSortModel">Geschlecht</th>
+    <th sortable="street" sort-model="personSortModel">Straße</th>
+    <th sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
+    <th sortable="country" sort-model="personSortModel">Land</th>
+    <th sortable="locale" sort-model="personSortModel">Sprache</th>
+    <th sortable="birthday" sort-model="personSortModel">Geburtstag</th>
+    <th sortable="income" sort-model="personSortModel">Jahreseinkommen</th>
+  </tr>
+  <tr>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.firstname"></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td><select class="input-small" ng-model="searchPerson.sex" ng-options="s | sexSymbol for s in ['', 'm', 'f']"></select></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.street"></td>
+    <td></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.country"></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.locale"></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.birthday"></td>
+    <td><input class="input-small" placeholder="Filter" ng-model="searchPerson.income"></td>
+  </tr>
+  <tr ng-repeat="person in persons | filter:searchPerson | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+    <td>{{person.firstname}}</td>
+    <td>{{person.lastname}}</td>
+    <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
+    <td>{{person.street}}</td>
+    <td>{{person.zip}} {{person.city}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/>{{person.country}}</td>
+    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
+  </tr>  
+</table>

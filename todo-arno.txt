@@ -4,10 +4,12 @@ Stichkpunktsammlung für Arno
 todo
 ----
 * sortieren:
-  * nach kombinierten / abgleiteten Spalten
+  * nach mehreren Spalten
 * filtern
-  * je Spalte und global
-  * Filter: Eintrag in Filter-Feld mit "<2"
+  * Trefferzahl
+    * anzeigen
+  * Ausdrücke: '!', '<', regex(?)
+  * als directive
 * in-place Editieren
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
@@ -19,7 +21,10 @@ todo
 * umschaltbar "Vorname" und "Nachname" oder "Name"
   * mit Animation
 * Angular hat dateFilter-Service --> Formatierung?!
-  
+* numPages() == 0 --> 'keine Datensätze' statt Tabelle (und statt '1/0')
+* Layout / Verschönerung
+  * Filter-Controls gleich hoch, volle Breite
+  * Umgang mit zu breiter Tabelle 
   
 done
 ----
@@ -31,4 +36,7 @@ done
 * Paging
 * sortieren
   * auch nach Geburtstag und Einkommen (--> *nicht* nach der gerenderten String-Darstellung!)
+* filtern
+  * global
+  * je Spalte
   

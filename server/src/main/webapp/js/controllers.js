@@ -11,7 +11,7 @@ function SimpleCtrl($scope, $http) {
   });
 }
 
-function PagingCtrl($scope, $http) {
+function PagingCtrl($scope, $http, $filter) {
 	$scope.personSortModel = {
       sortBy: [],
 	  sortAsc: {}
@@ -58,7 +58,8 @@ function PagingCtrl($scope, $http) {
 	  return Math.floor($scope.offset / $scope.rowsPerPage)+1;
 	}
 	$scope.numPages = function() {
-	  return Math.ceil($scope.persons.length / $scope.rowsPerPage);
+      var filtered = $filter('filter')($scope.persons, $scope.searchPerson);
+	  return Math.ceil(filtered.length / $scope.rowsPerPage);
 	}
 }
 

@@ -25,7 +25,7 @@ angular.module('datatable', [])
 	  return '\u2642';
 	if(input == 'f')
 	  return '\u2640';
-	return '???' + input;
+	return input;
   }
 })
 .filter('flagForLocale', function() {
