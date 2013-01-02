@@ -261,7 +261,8 @@ angular.module('datatable', [])
 	  compile: function compile(tElement, tAttrs, transclude) {
         return {
 	      post: function postLink(scope, element, attrs, controller) {
-	    	var x = $compile('<th ng-click="sortclick()"></th>', transclude);
+	    	// explicit compile function because ng-click appears not to be linked for templates
+	    	var x = $compile('<th ng-click="sortclick()"><img ng-src="{{sortImg}}"></img></th>', transclude);
 	    	var newElement = x(scope);
 
 	    	// attributes are not transcluded
@@ -273,18 +274,12 @@ angular.module('datatable', [])
 	    	element.replaceWith(newElement);
 	    	
 	    	var childNodes = element[0].childNodes;
-	    	for (var i=0; i<childNodes.length; i++) {
-	    	  newElement.append(childNodes[i]);
+	    	while(childNodes.length > 0) {
+	    	  // prepending the element gives it a new parent, automatically removing it from the 
+	          //  child collection of the old element
+	    	  newElement.prepend(childNodes[childNodes.length-1]);
 	    	}
-//	    	newElement.append(element);
-	    	
-	    	var imgElement = $compile('<img ng-src="{{sortImg}}"></img>')(scope);
-	    	newElement.append(imgElement);
 
-//	    	alert(newElement.html());
-//	    	newElement.append('<img src="img/sort_up.png"></img>');
-//	    	alert(newElement.html());
-	    	
 	    	scope.refresh();
 	      }
 	    }
