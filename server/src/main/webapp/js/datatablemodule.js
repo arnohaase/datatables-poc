@@ -248,7 +248,7 @@ angular.module('datatable', [])
 		      $scope.sortModel.sortAsc[$scope.sortField] = false;
 		    }
 		  	else {
-  	          $scope.sortModel.sortAsc[$scope.sortField] = true;
+              $scope.sortModel.sortBy = [];
 	  	    }
 	  	  }
 	      else {
