@@ -73,7 +73,7 @@
     <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
     <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
-    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
+    <td inplace-editable="person.income" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input ng-model="person.income" to-number=".,2"></td>
   </tr>  
 </table>
 

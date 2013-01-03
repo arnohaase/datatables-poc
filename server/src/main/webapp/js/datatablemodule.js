@@ -132,8 +132,8 @@ angular.module('datatable', [])
 })
 .filter('numberParse', function() {
   return function(s, thousandsSep, decimalSep) {
-	var withoutThousands = s.split(thousandsSep).join();
-	var num = s.split(decimalSep).join('.');
+	var withoutThousands = s.split(thousandsSep).join('');
+	var num = withoutThousands.split(decimalSep).join('.');
 	return parseFloat(num);
   };
 })
@@ -156,6 +156,30 @@ angular.module('datatable', [])
 	return result;
   }
 })
+.directive('toNumber', function ($filter) {
+    return {
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ctrl) {
+    	var config = attrs['toNumber'] || ',.2';
+    	var thousandsSep = config.substr(0,1);
+    	var decimalSep = config.substr(1,1);
+    	var numDecimals = parseInt(config.substr(2,1));
+    	
+        ctrl.$parsers.push(function (value) {
+          var result = $filter('numberParse')(value || '', thousandsSep, decimalSep);
+          return result;
+        });
+        ctrl.$formatters.push(function(value) {
+          var pattern = '#' + thousandsSep + '##0' + decimalSep;
+          for (var i=0; i<numDecimals; i++) {
+        	pattern += '0';  
+          };
+          
+          return $filter('numberFormat')(value || 0, pattern);
+        });
+      }
+    };
+})
 .directive('inplaceEditable', function($parse, $compile) { // expects exactly two child elements, the first being for display and the second for editing
     return function (scope, element, attrs) {
       var displayElement = element.children().first();
@@ -171,6 +195,7 @@ angular.module('datatable', [])
     	  saved = modelAccess(scope); 
     	  displayElement.hide();
     	  element.append(editElement);
+    	  editElement.focus();
     	});
       });
       
