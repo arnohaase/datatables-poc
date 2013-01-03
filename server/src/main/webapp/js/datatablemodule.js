@@ -149,25 +149,7 @@ angular.module('datatable', [])
 	return result;
   }
 })
-.directive('dummy', function($compile) {
-	var directiveDefinitionObject = {
-//	  template: '<div ng-click="alert(123)" style="background-color:red;" ng-transclude></div>',
-	  transclude: false
-	  ,
-	  compile: function compile(tElement, tAttrs, transclude) {
-        return {
-  	      post: function postLink(scope, element, attrs, controller) {
-  	    	var x = $compile('<div style="background-color:yellow;" ></div>', transclude);
-  	    	var newElement = x(scope);
-  	    	element.replaceWith(newElement);
-  	    	newElement.append(element);
-  	      }
-  	    };
-	  }
-	};
-	return directiveDefinitionObject;
-})
-.directive('inplaceEditable', function($parse) { // expects exactly two child elements, the first being for display and the second for editing
+.directive('inplaceEditable', function($parse, $compile) { // expects exactly two child elements, the first being for display and the second for editing
     return function (scope, element, attrs) {
       var displayElement = element.children().first();
       var editElement    = element.children().last();
@@ -178,11 +160,17 @@ angular.module('datatable', [])
       var saved;
       
       displayElement.click(function() {
-    	saved = modelAccess(scope); 
-    	displayElement.hide(); 
-    	editElement.show().focus();
+    	scope.$apply(function() {
+    	  saved = modelAccess(scope); 
+    	  displayElement.hide();
+    	  element.append(editElement);
+    	});
       });
-      editElement.blur (function() {displayElement.show(); editElement.hide();});
+      
+      editElement.blur (function() {
+        displayElement.show(); 
+        editElement.detach();
+      });
       
       editElement.keydown(function(e) {
     	if(e.keyCode == 27) {
@@ -193,7 +181,7 @@ angular.module('datatable', [])
     	  editElement.blur();
     	}
       });
-      editElement.hide();
+      editElement.detach();
     };
 })
 .directive('sortable', function($compile) {
