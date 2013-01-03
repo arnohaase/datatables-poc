@@ -130,6 +130,13 @@ angular.module('datatable', [])
 	    return (isNegative?'-':'') + v[0] + v[1]; //put back any negation and combine integer and fraction.
 	}
 })
+.filter('numberParse', function() {
+  return function(s, thousandsSep, decimalSep) {
+	var withoutThousands = s.split(thousandsSep).join();
+	var num = s.split(decimalSep).join('.');
+	return parseFloat(num);
+  };
+})
 .filter('dateFormat', function() {
   return function(d, pattern) {
 	  return pattern
