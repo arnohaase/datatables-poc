@@ -9,7 +9,6 @@ todo
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
-  * Zahlen, Datum --> Transformation
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
@@ -40,3 +39,5 @@ done
   * kombinierte Spalten (PLZ + Ort)
 * Umschalten Vor- und Nachname getrennt oder zusammen
 * in-place-Editierung
+  * Input-Felder, Comboboxen
+  * Zahlen unter Berücksichtigung der Locale
