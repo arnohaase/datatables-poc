@@ -59,14 +59,14 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
-  <tr ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+  <tr ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td ng-hide="combinedName">{{person.firstname}}</td>
     <td ng-hide="combinedName">{{person.lastname}}</td>
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
     <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
     <td>
       <div style="margin-left:2px;margin-top:1px;margin-bottom:2px;" onclick="$(event.target).hide().next().show().children().first().focus()">{{person.street}}</div>
-      <div style="display:none;"><input style="width:100%" onblur="$(event.target).parent().hide().prev().show()" ng-model="person.street"></input></div>
+      <div style="display:none;"><input style="width:100%" onkeydown="if(event.keyCode == 13 || event.keyCode == 27) $(event.target).parent().hide().prev().show()" onblur="$(event.target).parent().hide().prev().show()" ng-model="person.street"></input></div>
     </td>
     <td>{{person.zip}} {{person.city}}</td>
     <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>

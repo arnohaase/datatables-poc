@@ -12,8 +12,8 @@ http://jsfiddle.net/pkozlowski_opensource/Xbf2w/1/
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
+  * Events mit jQuery registrieren --> event.target ist im IE anders
   * directive
-  * enter / esc
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld

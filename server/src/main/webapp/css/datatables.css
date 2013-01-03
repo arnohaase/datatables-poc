@@ -13,3 +13,7 @@ table.person td {
   margin:0;
   padding:0;
 }
+
+.table-row-even {
+  background-color: #f6f6ff;
+}
