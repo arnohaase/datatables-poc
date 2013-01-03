@@ -40,4 +40,4 @@ done
   * mit Comboboxen, auch custom-designten
   * kombinierte Spalten (PLZ + Ort)
 * Umschalten Vor- und Nachname getrennt oder zusammen
-  
+* in-place-Editierung

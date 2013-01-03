@@ -167,56 +167,34 @@ angular.module('datatable', [])
 	};
 	return directiveDefinitionObject;
 })
-/*
-
-<td inplace-editable>
-  <div>{{person.street}}</div>
-  <input ng-model="person.street">
-</td>
- 
-  <div style="margin-left:2px;margin-top:1px;margin-bottom:2px;" onclick="$(event.target || e.srcElement).hide().next().show().children().first().focus()">{{person.street}}</div>
-  <div style="display:none;">
-    <input style="width:100%" 
-      onkeydown="if(event.keyCode == 13 || event.keyCode == 27) $(event.target || e.srcElement).blur()" 
-      onblur="$(event.target).parent().hide().prev().show()" 
-      ng-model="person.street">
-    </input>
-  </div>
-
- 
- */
 .directive('inplaceEditable', function($parse) { // expects exactly two child elements, the first being for display and the second for editing
-    var directiveDefinitionObject = {
-      scope: false,
-      link: function postLink (scope, element, attrs) {
-          var displayElement = element.children().first();
-          var editElement    = element.children().last();
-          displayElement.addClass('inplace-editable');
-          editElement.addClass('inplace-editable');
+    return function (scope, element, attrs) {
+      var displayElement = element.children().first();
+      var editElement    = element.children().last();
+      displayElement.addClass('inplace-editable');
+      editElement.addClass('inplace-editable');
 
-          var modelAccess = $parse(attrs['inplaceEditable']);
-          var saved;
-          
-          displayElement.click(function() {
-        	saved = modelAccess(scope); 
-        	displayElement.hide(); 
-        	editElement.show().focus();
-          });
-          editElement.blur (function() {displayElement.show(); editElement.hide();});
-          
-          editElement.keydown(function(e) {
-        	if(e.keyCode == 27) {
-        	  scope.$apply(function() {modelAccess.assign(scope, saved)});
-        	}
-        	  
-        	if(e.keyCode == 13 || e.keyCode == 27) {
-        	  editElement.blur();
-        	}
-          });
-          editElement.hide();
+      var modelAccess = $parse(attrs['inplaceEditable']);
+      var saved;
+      
+      displayElement.click(function() {
+    	saved = modelAccess(scope); 
+    	displayElement.hide(); 
+    	editElement.show().focus();
+      });
+      editElement.blur (function() {displayElement.show(); editElement.hide();});
+      
+      editElement.keydown(function(e) {
+    	if(e.keyCode == 27) {
+    	  scope.$apply(function() {modelAccess.assign(scope, saved)});
     	}
+    	  
+    	if(e.keyCode == 13 || e.keyCode == 27) {
+    	  editElement.blur();
+    	}
+      });
+      editElement.hide();
     };
-    return directiveDefinitionObject;
 })
 .directive('sortable', function($compile) {
 	var directiveDefinitionObject = {
