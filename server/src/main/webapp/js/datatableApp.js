@@ -6,6 +6,7 @@ angular.module('datatableApp', ['datatable']).
         when('/simplepaging',          {templateUrl: 'partials/simplepaging.html',  controller: PagingCtrl}).
         when('/sortable',              {templateUrl: 'partials/sortable.html',      controller: PagingCtrl}).
         when('/filtered',              {templateUrl: 'partials/filtered.html',      controller: PagingCtrl}).
+        when('/inplace',               {templateUrl: 'partials/inplace.html',       controller: PagingCtrl}).
         when('/home',                  {templateUrl: 'partials/home.html',          controller: EmptyCtrl}).
         otherwise({redirectTo: '/home'});
     }]

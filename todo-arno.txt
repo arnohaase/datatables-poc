@@ -3,9 +3,12 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
+http://jsfiddle.net/pkozlowski_opensource/Xbf2w/1/
+
 * sortieren:
   * nach mehreren Spalten
 * filtern
+  * Combobox: initial zwei leere Zeilen --> 'required'
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren

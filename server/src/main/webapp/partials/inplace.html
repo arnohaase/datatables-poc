@@ -1,0 +1,79 @@
+
+<h1>Mit In-Place-Edit</h1>
+
+<div class="well">
+  <div class="row-fluid">
+    <div class="span3">
+      <select ng-model="rowsPerPage" ng-options="r for r in [10, 20, 50]"></select>
+    </div>
+    <div class="span3">
+      <div class="btn-group">
+        <button class="btn" ng-disabled="! hasPrevPage()" ng-click="firstPage()">&lt;&lt;</button>
+        <button class="btn" ng-disabled="! hasPrevPage()" ng-click="prevPage()">&lt;</button>
+        <button class="btn" ng-disabled="true" style="width:7em;text-align:center;">{{curPage()}} / {{numPages()}}</button>
+        <button class="btn" ng-disabled="! hasNextPage()" ng-click="nextPage()">&gt;</button>
+        <button class="btn" ng-disabled="! hasNextPage()" ng-click="lastPage()">&gt;&gt;</button>
+      </div>
+    </div>
+    <div class="span3" style="margin-top:4px;">
+      <input ng-show="showFilters" ng-model="searchPerson.$" placeholder="Filtertext" class="input-large search-query"></input>
+    </div>
+    <div class="span3" style="margin-top:4px;">
+      <input type="checkbox" ng-model="showFilters" style="margin-top:-6px; padding-top:0;"> Filter anzeigen <p />
+      <input type="checkbox" ng-model="combinedName" style="margin-top:-6px; padding-top:0;"> Vor- und Nachnamen gemeinsam<p />
+    </div>
+  </div>
+</div>
+
+<table class="person">
+  <tr>
+    <th class="separateNames" style="width:100px;" sortable="firstname" sort-model="personSortModel">Vorname</th>
+    <th class="separateNames" style="width:170px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
+    <th class="combinedName"  style="width:286px;" sortable="lastname firstname" sort-model="personSortModel">Name</th>
+    <th style="width:80px;" sortable="sex" sort-model="personSortModel">{{'m' | sexSymbol}} / {{'f' | sexSymbol}}</th>
+    <th style="width:150px;" sortable="street" sort-model="personSortModel">Straße</th>
+    <th style="width:250px;" sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
+    <th style="width:200px;" sortable="country" sort-model="personSortModel">Land</th>
+    <th style="width:100px;" sortable="locale" sort-model="personSortModel">Sprache</th>
+    <th style="width:120px;" sortable="birthday" sort-model="personSortModel">Geburtstag</th>
+    <th style="width:120px;" sortable="income" sort-model="personSortModel">Einkommen</th>
+  </tr>
+  <tr ng-show="showFilters">
+    <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
+    <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
+    <td ng-show="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.name"></td>
+    <td>
+      <select class="filter" ng-model="searchPerson.sex" style="text-align:center;padding-left:13px;">
+        <option ng-repeat="s in ['', 'm', 'f']" style="text-align:center;" value="{{s}}">{{s | sexSymbol}}</option>
+      </select>
+      </td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.street"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.zipCity"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.country"></td>
+    <td>
+      <select class="filter" ng-model="searchPerson.locale" style="background: url('{{searchPerson.locale | flagForLocale}}') no-repeat 50% 50%;">
+        <option value=""></option>
+        <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
+      </select>
+    </td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.birthday"></td>
+    <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
+  </tr>
+  <tr ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+    <td ng-hide="combinedName">{{person.firstname}}</td>
+    <td ng-hide="combinedName">{{person.lastname}}</td>
+    <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
+    <td style="text-align:center;">{{person.sex | sexSymbol}}</td>
+    <td>
+      <div style="margin-left:2px;margin-top:1px;margin-bottom:2px;" onclick="$(event.target).hide().next().show().children().first().focus()">{{person.street}}</div>
+      <div style="display:none;"><input style="width:100%" onblur="$(event.target).parent().hide().prev().show()" ng-model="person.street"></input></div>
+    </td>
+    <td>{{person.zip}} {{person.city}}</td>
+    <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
+    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td style="text-align:right;">{{person.income | numberFormat:'#.##0,00'}}</td>
+  </tr>  
+</table>
+
+

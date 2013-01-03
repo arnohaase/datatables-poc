@@ -21,6 +21,7 @@ function PagingCtrl($scope, $http, $filter) {
 	$scope.offset = 0;
 	$scope.persons = [];
 	$scope.showFilters = true;
+	
 	$scope.$watch('showFilters', function(newValue) {
 	  if(! newValue) {
 		$scope.searchPerson = {};
