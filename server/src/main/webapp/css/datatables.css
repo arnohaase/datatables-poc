@@ -17,3 +17,14 @@ table.person td {
 .table-row-even {
   background-color: #f6f6ff;
 }
+
+div.inplace-editable {
+  margin-left:2px;
+  margin-top:1px;
+  margin-bottom:2px;
+}
+
+input.inplace-editable {
+  width: 100%;
+}
+

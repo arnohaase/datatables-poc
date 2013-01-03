@@ -14,6 +14,8 @@ http://jsfiddle.net/pkozlowski_opensource/Xbf2w/1/
 * in-place Editieren
   * Events mit jQuery registrieren --> event.target ist im IE anders
   * directive
+  * Zahlen, Datum --> Transformation
+  * Esc: Änderungen verwerfen
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
