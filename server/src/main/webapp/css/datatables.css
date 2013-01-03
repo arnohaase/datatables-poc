@@ -27,4 +27,11 @@ div.inplace-editable {
 input.inplace-editable {
   width: 100%;
 }
+select.inplace-editable {
+  width: 100%;
+  margin-top: -3px;
+  margin-bottom: -3px;
+  margin-left: 4px;
+  margin-right: 0px;
+}
 

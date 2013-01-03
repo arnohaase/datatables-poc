@@ -3,8 +3,6 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
-http://jsfiddle.net/pkozlowski_opensource/Xbf2w/1/
-
 * sortieren:
   * nach mehreren Spalten
 * filtern
@@ -12,10 +10,7 @@ http://jsfiddle.net/pkozlowski_opensource/Xbf2w/1/
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
-  * Events mit jQuery registrieren --> event.target ist im IE anders
-  * directive
   * Zahlen, Datum --> Transformation
-  * Esc: Änderungen verwerfen
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
