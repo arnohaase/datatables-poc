@@ -180,7 +180,9 @@ angular.module('datatable', [])
       }
     };
 })
-.directive('inplaceEditable', function($parse, $compile) { // expects exactly two child elements, the first being for display and the second for editing
+.directive('inplaceEditable', function($parse, $compile) { 
+	// expects exactly two child elements, the first being for display and the second for editing. The editing
+	//  must bind to datatable_edit_value //TODO make this configurable?
     return function (scope, element, attrs) {
       var displayElement = element.children().first();
       var editElement    = element.children().last();
@@ -188,11 +190,10 @@ angular.module('datatable', [])
       editElement.addClass('inplace-editable');
 
       var modelAccess = $parse(attrs['inplaceEditable']);
-      var saved;
       
       displayElement.click(function() {
     	scope.$apply(function() {
-    	  saved = modelAccess(scope); 
+    	  scope.datatable_edit_value = modelAccess(scope);
     	  displayElement.hide();
     	  element.append(editElement);
     	  editElement.focus();
@@ -202,11 +203,16 @@ angular.module('datatable', [])
       editElement.blur (function() {
         displayElement.show(); 
         editElement.detach();
+        
+        scope.$apply(function() {
+          modelAccess.assign(scope, scope.datatable_edit_value);
+        });
+        // JSON.decode(JSON.encode(o))
       });
       
       editElement.keydown(function(e) {
     	if(e.keyCode == 27) {
-    	  scope.$apply(function() {modelAccess.assign(scope, saved)});
+    	  scope.$apply(function() {scope.datatable_edit_value = modelAccess(scope)});
     	}
     	  
     	if(e.keyCode == 13 || e.keyCode == 27) {

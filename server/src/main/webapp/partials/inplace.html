@@ -61,19 +61,19 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
   <tr ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
-    <td ng-hide="combinedName" inplace-editable="person.firstname"><div>{{person.firstname}}</div><input ng-model="person.firstname"></td>
-    <td ng-hide="combinedName" inplace-editable="person.lastname"><div>{{person.lastname}}</div><input ng-model="person.lastname"></td>
+    <td ng-hide="combinedName" inplace-editable="person.firstname"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
+    <td ng-hide="combinedName" inplace-editable="person.lastname"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
     <td style="text-align:center;" inplace-editable="person.sex">
       <div>{{person.sex | sexSymbol}}</div>
-      <select ng-model="person.sex" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
+      <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
     </td>
-    <td inplace-editable="person.street"><div>{{person.street}}</div><input ng-model="person.street"></td>
+    <td inplace-editable="person.street"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}}</td>
     <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
     <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
-    <td inplace-editable="person.income" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="person.income" to-number=".,2"></td>
+    <td inplace-editable="person.income" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
   </tr>  
 </table>
 
