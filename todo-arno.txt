@@ -9,7 +9,9 @@ todo
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
-  * während des Editierens *nicht* live mit dem Gesamt-Modell abgleichen --> Live-Editierung mit sortierter Tabelle, wo die Editierung die Sortier-Reihenfolge ändert
+  * undelete-Button für gelöschte Zeilen
+  * revert-Button für geänderte Zeilen
+  * Tooltips
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
