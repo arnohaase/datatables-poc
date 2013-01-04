@@ -99,9 +99,87 @@ function PagingCtrl($scope, $http, $filter) {
           return name.indexOf($scope.searchPersonMisc.name.toLowerCase()) >= 0;
 	    }
 	    return true;
+	  };
+	  
+	  var rowStatus = $scope.rowStatus(p);
+	  var changesOnly = function() {
+		if (! $scope.showChangesOnly) {
+		  return true;
+		}
+		return rowStatus !== 'clean';
+	  };
+	  var showDeleted = function() {
+		if ($scope.showDeleted) {
+		  return true;
+		}
+		return rowStatus !== 'deleted';
 	  }
 	  
-	  return zipCity() && fullName();
+	  return zipCity() && fullName() && changesOnly() && showDeleted();
+	};
+	
+	$scope.rowStatus = function(row) {
+	  if(!row || !row.datatable_inplace_internal) {
+		return 'clean';
+	  }
+	  var internal = row.datatable_inplace_internal;
+	  if (internal.deleted) {
+		return 'deleted';
+	  }
+	  if (internal.isNew) {
+		return 'new';
+	  }
+	  if (internal.dirty) {
+		return 'dirty';
+	  }
+	  return 'clean';
+	};
+	$scope.rowStatusIcon = function(row) {
+	  var rowStatus = $scope.rowStatus(row);
+	  if(rowStatus === "dirty") {
+		return "icon-edit";
+	  }
+	  if(rowStatus === "new") {
+		return "icon-cog";
+	  }
+	  if(rowStatus === "deleted") {
+		  return "icon-trash";
+	  }
+	  return "";
+	};
+	
+	var indexOf = function(p) {
+	  for(var i=0; i<$scope.persons.length; i++) {
+		if(p === $scope.persons[i]) {
+	      return i;
+		}
+	  }
+	  return -1;
+	}
+	
+	$scope.addPerson = function(p) {
+	  var i = indexOf(p);
+	  var before = $scope.persons.slice(0, i+1);
+	  var after = $scope.persons.slice(i+1);
+
+	  var newElement = {datatable_inplace_internal: {isNew: true}};
+	  
+	  before.push(newElement);
+	  $scope.persons = before.concat(after);
+	}
+	$scope.deletePerson = function(p) {
+	  if($scope.rowStatus(p) === 'new') {
+	    var i = indexOf(p);
+	    var before = $scope.persons.slice(0, i);
+	    var after = $scope.persons.slice(i+1);
+	    $scope.persons = before.concat(after);
+	  }
+	  else {
+	    if(! p.datatable_inplace_internal) {
+	      p.datatable_inplace_internal = {};
+	    }
+	    p.datatable_inplace_internal.deleted=true;
+	  }
 	}
 	
 	$scope.locales = function() {
@@ -128,21 +206,3 @@ function PagingCtrl($scope, $http, $filter) {
 	};
 }
 
-//function SimpleWithIncrementalLoadCtrl($scope, $http) {
-//	$scope.persons = [];
-//	
-//	$http.get('rest/person/list/0/50')
-//	.success(function(data) {
-//		$scope.persons=data.persons.concat($scope.persons);
-//	})
-//	.error(function(data, status, headers, config) {
-//		alert('Fehler beim Holen der Daten: ' + status);
-//	});
-//	$http.get('rest/person/list/50/9999999')
-//	.success(function(data) {
-//		$scope.persons=$scope.persons.concat(data.persons);
-//	})
-//	.error(function(data, status, headers, config) {
-//		alert('Fehler beim Holen der Daten: ' + status);
-//	});
-//}

@@ -139,6 +139,9 @@ angular.module('datatable', [])
 })
 .filter('dateFormat', function() {
   return function(d, pattern) {
+	  if(!d) {
+		return '';
+	  }
 	  return pattern
 	    .replace('dd', d.substr(8, 2))
 	    .replace('MM', d.substr(5, 2))
@@ -190,6 +193,7 @@ angular.module('datatable', [])
       editElement.addClass('inplace-editable');
 
       var modelAccess = $parse(attrs['inplaceEditable']);
+      var rowAccess = $parse(attrs['inplaceEditRow']);
       
       displayElement.click(function() {
     	scope.$apply(function() {
@@ -205,9 +209,23 @@ angular.module('datatable', [])
         editElement.detach();
         
         scope.$apply(function() {
-          modelAccess.assign(scope, scope.datatable_edit_value);
+          var oldValue = modelAccess(scope);
+          var newValue = scope.datatable_edit_value;
+          
+          if (oldValue !== newValue) {
+        	var row = rowAccess(scope);
+        	
+        	if (! row.datatable_inplace_internal) {
+        	  row.datatable_inplace_internal={};
+        	}
+        	if (! row.datatable_inplace_internal.dirty) {
+        	  row.datatable_inplace_internal.orig = angular.fromJson(angular.toJson(row)); 
+        	  row.datatable_inplace_internal.dirty = true;
+        	}
+        	  
+            modelAccess.assign(scope, scope.datatable_edit_value);
+          }
         });
-        // JSON.decode(JSON.encode(o))
       });
       
       editElement.keydown(function(e) {

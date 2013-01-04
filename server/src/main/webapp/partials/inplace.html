@@ -3,10 +3,10 @@
 
 <div class="well">
   <div class="row-fluid">
-    <div class="span3">
+    <div class="span2">
       <select ng-model="rowsPerPage" ng-options="r for r in [10, 20, 50]"></select>
     </div>
-    <div class="span3">
+    <div class="span2">
       <div class="btn-group">
         <button class="btn" ng-disabled="! hasPrevPage()" ng-click="firstPage()">&lt;&lt;</button>
         <button class="btn" ng-disabled="! hasPrevPage()" ng-click="prevPage()">&lt;</button>
@@ -15,18 +15,23 @@
         <button class="btn" ng-disabled="! hasNextPage()" ng-click="lastPage()">&gt;&gt;</button>
       </div>
     </div>
-    <div class="span3" style="margin-top:4px;">
+    <div class="span2" style="margin-top:4px;">
       <input ng-show="showFilters" ng-model="searchPerson.$" placeholder="Filtertext" class="input-large search-query"></input>
     </div>
-    <div class="span3" style="margin-top:4px;">
+    <div class="span2" style="margin-top:4px;">
       <input type="checkbox" ng-model="showFilters" style="margin-top:-6px; padding-top:0;"> Filter anzeigen <p />
       <input type="checkbox" ng-model="combinedName" style="margin-top:-6px; padding-top:0;"> Vor- und Nachnamen gemeinsam<p />
+    </div>
+    <div class="span2" style="margin-top:4px;">
+      <input type="checkbox" ng-model="showChangesOnly" style="margin-top:-6px; padding-top:0;"> Nur Änderungen anzeigen<p />
+      <input type="checkbox" ng-model="showDeleted"     style="margin-top:-6px; padding-top:0;"> Gelöschte Anzeigen<p />
     </div>
   </div>
 </div>
 
 <table class="person">
   <tr>
+    <th></th>
     <th class="separateNames" style="width:100px;" sortable="firstname" sort-model="personSortModel">Vorname</th>
     <th class="separateNames" style="width:170px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
     <th class="combinedName"  style="width:286px;" sortable="lastname firstname" sort-model="personSortModel">Name</th>
@@ -39,6 +44,7 @@
     <th style="width:120px;" sortable="income" sort-model="personSortModel">Einkommen</th>
   </tr>
   <tr ng-show="showFilters">
+    <td></td>
     <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.firstname"></td>
     <td ng-hide="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPerson.lastname"></td>
     <td ng-show="combinedName"><input class="filter" placeholder="Filter" ng-model="searchPersonMisc.name"></td>
@@ -61,21 +67,26 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
   </tr>
   <tr ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
-    <td ng-hide="combinedName" inplace-editable="person.firstname"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
-    <td ng-hide="combinedName" inplace-editable="person.lastname"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
+    <td>
+      <button class="btn" style="padding:1px 2px;" ng-click="addPerson(person)"><img src="img/icons/add.png"></button>
+      <button class="btn" style="padding:1px 2px;" ng-click="deletePerson(person)"><img src="img/icons/delete.png"></button>
+      <i style="margin-top:5px;" class="icon {{rowStatusIcon(person)}}"></i>
+    </td>
+    <td ng-hide="combinedName" inplace-editable="person.firstname" inplace-edit-row="person"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
+    <td ng-hide="combinedName" inplace-editable="person.lastname" inplace-edit-row="person"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
-    <td style="text-align:center;" inplace-editable="person.sex">
+    <td style="text-align:center;" inplace-editable="person.sex" inplace-edit-row="person">
       <div>{{person.sex | sexSymbol}}</div>
       <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
     </td>
-    <td inplace-editable="person.street"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
+    <td inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}}</td>
     <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
     <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
-    <td inplace-editable="person.income" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
+    <td inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
   </tr>  
 </table>
 
     
-    
+   

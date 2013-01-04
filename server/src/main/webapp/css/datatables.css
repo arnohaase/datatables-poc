@@ -35,3 +35,6 @@ select.inplace-editable {
   margin-right: 0px;
 }
 
+.btn-group > button.btn.icon-button {
+  padding: 4px 6px;
+}
