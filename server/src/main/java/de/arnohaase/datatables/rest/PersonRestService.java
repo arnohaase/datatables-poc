@@ -27,7 +27,7 @@ public class PersonRestService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("id") int oid) {
-        return new PersonService().findPersons(oid, 1).get(0);
+        return PersonService.INSTANCE.findPerson(oid);
     }
 
     @Path("/list/{from}/{maxNum}")
@@ -40,8 +40,8 @@ public class PersonRestService {
         
         result.setFrom(from);
         result.setMaxNum(maxNum);
-        result.setPersons(new PersonService().findPersons(from, maxNum));
-        result.setTotalNum(new PersonService().getNumPersons());
+        result.setPersons(PersonService.INSTANCE.findPersons(from, maxNum));
+        result.setTotalNum(PersonService.INSTANCE.getNumPersons());
         
         return result;
     }
@@ -54,14 +54,14 @@ public class PersonRestService {
 
         final List<Integer> result = new ArrayList<Integer>();
         for(Person p: changes.getInserts()) {
-            new PersonService().insert(p);
+            PersonService.INSTANCE.insert(p);
             result.add(p.getOid());
         }
         for(Person p: changes.getUpdates()) {
-            new PersonService().update(p);
+            PersonService.INSTANCE.update(p);
         }
         for(Person p: changes.getDeletes()) {
-            new PersonService().delete(p.getOid());
+            PersonService.INSTANCE.delete(p.getOid());
         }
         return new PersonOidList(result);
     }

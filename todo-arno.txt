@@ -3,6 +3,10 @@ Stichkpunktsammlung für Arno
 
 todo
 ----
+* OIDs nach dem Speichern setzen
+* 'deleted' wirklich löschen (vorab!)
+* alle gespeicherten 'clean' machen (dirty, deleted: vorab!)
+
 * sortieren:
   * nach mehreren Spalten
 * filtern

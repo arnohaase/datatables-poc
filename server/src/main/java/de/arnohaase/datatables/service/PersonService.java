@@ -51,6 +51,11 @@ public class PersonService {
         }
     }
 
+    public static PersonService INSTANCE = new PersonService();
+    
+    private PersonService() {
+    }
+    
     public synchronized int getNumPersons() {
         return persons.size();
     }
@@ -97,4 +102,8 @@ public class PersonService {
 		
 		return result;
 	}
+
+    public synchronized Person findPerson(int oid) {
+        return GenericCloner.clone(persons.get(oid));
+    }
 }
