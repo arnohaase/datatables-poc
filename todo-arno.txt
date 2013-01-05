@@ -1,11 +1,10 @@
 Stichkpunktsammlung für Arno
 ============================
+http://perfectionkills.com/understanding-delete/
 
 todo
 ----
-* OIDs nach dem Speichern setzen
-* 'deleted' wirklich löschen (vorab!)
-* alle gespeicherten 'clean' machen (dirty, deleted: vorab!)
+* Edit des Geschlechts funktioniert nicht
 
 * sortieren:
   * nach mehreren Spalten
@@ -19,7 +18,6 @@ todo
   * Validierung
   * Dirty-Markierung je Zeile
   * Dirty-Markierung je Feld
-  * 'n geänderte Datensätze'
 * Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
@@ -33,6 +31,7 @@ todo
 * Aufräumen
   * Zuordnung Land/Sprache: in JSON-Datei auslagern
   * Stadt, Land, Sprache, Geburtstag editieren
+  * Rückfrage vor Refresh, wenn dirty
   
 done
 ----

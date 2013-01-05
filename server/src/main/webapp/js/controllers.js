@@ -42,14 +42,6 @@ function PagingCtrl($scope, $http, $filter) {
 		}
 	});
 	
-	$http.get('rest/person/list/0/9999999')
-	.success(function(data) {
-		$scope.persons=data.persons;
-	})
-	.error(function(data, status, headers, config) {
-		alert('Fehler beim Holen der Daten: ' + status);
-	});
-	
 	$scope.hasPrevPage = function() {
       return $scope.offset > 0;
 	};
@@ -221,6 +213,16 @@ function PagingCtrl($scope, $http, $filter) {
 	  return result;
 	};
 	
+	$scope.refresh = function() {
+      $http.get('rest/person/list/0/9999999')
+	  .success(function(data) {
+		$scope.persons=data.persons;
+	  })
+	  .error(function(data, status, headers, config) {
+		alert('Fehler beim Holen der Daten: ' + status);
+	  });
+	};
+	
 	$scope.save = function() {
 	  var inserts = [];
 	  var updates = [];
@@ -233,22 +235,37 @@ function PagingCtrl($scope, $http, $filter) {
 		  inserts.push(p);
 		}
 		if(status === 'deleted') {
+		  delete p.datatable_inplace_internal;
 		  deletes.push(p);
+		  $scope.persons = $scope.persons.slice(0, i).concat($scope.persons.slice(i+1));
+		  i--;
 		}
 		if(status === 'dirty') {
+		  delete p.datatable_inplace_internal;
 		  updates.push(p);
 		}
 	  }
 	  
 	  $http.post('rest/person/push', {'inserts': inserts, 'updates': updates, 'deletes': deletes})
 	  .success(function(data) {
-        alert('saved successfully: ' + angular.toJson(data));
+		for(var i=0; i<inserts.length; i++) {
+		  inserts[i].oid = data.oids[i];
+		  delete inserts[i].datatable_inplace_internal;
+		}
 	  })
       .error(function(data, status, headers, config) {
 	    alert('Fehler beim Speichern der Daten: ' + status);
+	    for(var i=0; i<updates.length; i++) {
+	      updates[i].datatable_inplace_internal = {dirty: true};
+	      $scope.persons.push(updates[i]);
+	    }
+	    for(var i=0; i<deletes.length; i++) {
+	      deleted[i].datatable_inplace_internal = {deleted: true};
+	      $scope.persons.push(deletes[i]);
+	    }
 	  });
-	  
-	  alert('save');
 	}
+	
+	$scope.refresh();
 }
 

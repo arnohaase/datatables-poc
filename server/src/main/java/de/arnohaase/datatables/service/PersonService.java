@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
+
 import de.arnohaase.datatables.model.Person;
 import de.arnohaase.datatables.model.Sex;
 import de.arnohaase.datatables.util.GenericCloner;
 
 
 public class PersonService {
+    private static final Logger log = Logger.getLogger(PersonService.class);
+    
     private static final Map<Integer, Person> persons = new TreeMap<Integer, Person>();
     private static int nextOid=0;
     
@@ -73,6 +77,8 @@ public class PersonService {
     }
     
     public synchronized void update(Person p) {
+        System.out.println("!!!!!!!!!!!!!!!!!!");
+        log.info("updating person " + p.getOid());
         if (!persons.containsKey(p.getOid())) {
             throw new IllegalArgumentException("does not exist");
         }

@@ -29,8 +29,10 @@
   </div>
   <div class="row-fluid">
     <div class="span2">
-      <button class="btn" style="padding:1px 2px" ng-click="save()")>Save</button>
-      TODO: Toolbar
+      <div class="btn-group">
+        <button class="btn" style="padding:4px 6px" ng-click="save()")><img src="img/icons/disk.png"></button>
+        <button class="btn" style="padding:4px 6px" ng-click="refresh()")><img src="img/icons/arrow_refresh.png"></button>
+      </div>
     </div>
     <div class="span4">
       neu: {{numNew()}}, geändert: {{numChanged()}}, gelöscht: {{numDeleted()}}
@@ -84,7 +86,7 @@
       <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
     </td>
     <td inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
-    <td>{{person.zip}} {{person.city}}</td>
+    <td>{{person.zip}} {{person.city}} {{person.oid}}</td>
     <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
     <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
