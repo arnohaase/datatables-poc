@@ -9,7 +9,6 @@ todo
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
-  * Stadt, Land, Sprache, Geburtstag editieren
   * undelete-Button für gelöschte Zeilen
   * revert-Button für geänderte Zeilen
   * Tooltips
@@ -26,8 +25,10 @@ todo
 * Layout / Verschönerung
   * Umgang mit zu breiter Tabelle 
   * Einfügen / Löschen: 'uneven'-class kommt durch einander
+  * new / changed / deleted: graphisch zeigen
 * Aufräumen
   * Zuordnung Land/Sprache: in JSON-Datei auslagern
+  * Stadt, Land, Sprache, Geburtstag editieren
   
 done
 ----
