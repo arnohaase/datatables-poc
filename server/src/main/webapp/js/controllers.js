@@ -220,5 +220,35 @@ function PagingCtrl($scope, $http, $filter) {
 	  
 	  return result;
 	};
+	
+	$scope.save = function() {
+	  var inserts = [];
+	  var updates = [];
+	  var deletes = [];
+		
+	  for(var i=0; i<$scope.persons.length; i++) {
+		var p = $scope.persons[i];
+		var status = $scope.rowStatus(p);
+		if(status === 'new') {
+		  inserts.push(p);
+		}
+		if(status === 'deleted') {
+		  deletes.push(p);
+		}
+		if(status === 'dirty') {
+		  updates.push(p);
+		}
+	  }
+	  
+	  $http.post('rest/person/push', {'inserts': inserts, 'updates': updates, 'deletes': deletes})
+	  .success(function(data) {
+        alert('saved successfully: ' + angular.toJson(data));
+	  })
+      .error(function(data, status, headers, config) {
+	    alert('Fehler beim Speichern der Daten: ' + status);
+	  });
+	  
+	  alert('save');
+	}
 }
 

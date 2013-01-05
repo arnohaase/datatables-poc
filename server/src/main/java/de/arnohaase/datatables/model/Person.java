@@ -1,10 +1,12 @@
 package de.arnohaase.datatables.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement
-public class Person {
+public class Person implements Serializable {
 	private Integer oid;
 	private String firstname;
 	private String lastname;
