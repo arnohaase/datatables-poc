@@ -195,7 +195,7 @@ angular.module('datatable', [])
       var modelAccess = $parse(attrs['inplaceEditable']);
       var rowAccess = $parse(attrs['inplaceEditRow']);
       
-      displayElement.click(function() {
+      element.click(function() {
     	scope.$apply(function() {
     	  scope.datatable_edit_value = modelAccess(scope);
     	  displayElement.hide();

@@ -156,13 +156,14 @@ function PagingCtrl($scope, $http, $filter) {
 	  }
 	  return -1;
 	}
-	
 	$scope.addPerson = function(p) {
 	  var i = indexOf(p);
 	  var before = $scope.persons.slice(0, i+1);
 	  var after = $scope.persons.slice(i+1);
 
-	  var newElement = {datatable_inplace_internal: {isNew: true}};
+	  var newElement = {
+	    datatable_inplace_internal: {isNew: true}
+	  };
 	  
 	  before.push(newElement);
 	  $scope.persons = before.concat(after);
