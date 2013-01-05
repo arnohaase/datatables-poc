@@ -9,6 +9,7 @@ todo
   * Trefferzahl anzeigen
   * Ausdrücke: '!', '<', regex(?)
 * in-place Editieren
+  * Stadt, Land, Sprache, Geburtstag editieren
   * undelete-Button für gelöschte Zeilen
   * revert-Button für geänderte Zeilen
   * Tooltips
@@ -24,6 +25,9 @@ todo
 * numPages() == 0 --> 'keine Datensätze' statt Tabelle (und statt '1/0')
 * Layout / Verschönerung
   * Umgang mit zu breiter Tabelle 
+  * Einfügen / Löschen: 'uneven'-class kommt durch einander
+* Aufräumen
+  * Zuordnung Land/Sprache: in JSON-Datei auslagern
   
 done
 ----

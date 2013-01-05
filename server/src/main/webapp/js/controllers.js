@@ -148,6 +148,21 @@ function PagingCtrl($scope, $http, $filter) {
 	  return "";
 	};
 	
+	var countStatus = function(status) {
+	  return function() {
+        var result=0;
+	    for (var i=0; i<$scope.persons.length; i++) {
+          if($scope.rowStatus($scope.persons[i]) === status) {
+		    result++;
+	      }
+	    }
+	    return result;
+	  };
+	};
+	$scope.numNew = countStatus('new');
+	$scope.numChanged = countStatus('dirty');
+	$scope.numDeleted = countStatus('deleted');
+	
 	var indexOf = function(p) {
 	  for(var i=0; i<$scope.persons.length; i++) {
 		if(p === $scope.persons[i]) {

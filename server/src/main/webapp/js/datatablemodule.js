@@ -48,7 +48,7 @@ angular.module('datatable', [])
     if(input === 'fr_FR') {
     	return 'img/flags/fr.png';
     }
-    return '';
+    return 'img/flags/__.png';
   }
 })
 .filter('flagForCountry', function() {
@@ -62,7 +62,7 @@ angular.module('datatable', [])
 		if(input === 'France') {
 			return 'img/flags/fr.png';
 		}
-		return 'img/flags/ao.png';
+		return 'img/flags/__.png';
 	}
 })
 .filter('numberFormat', function() {
