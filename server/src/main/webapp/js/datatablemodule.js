@@ -185,7 +185,7 @@ angular.module('datatable', [])
 })
 .directive('inplaceEditable', function($parse, $compile) { 
 	// expects exactly two child elements, the first being for display and the second for editing. The editing
-	//  must bind to datatable_edit_value //TODO make this configurable?
+	//  must bind to datatable_edit_value  //TODO make this configurable?
     return function (scope, element, attrs) {
       var displayElement = element.children().first();
       var editElement    = element.children().last();
@@ -209,6 +209,8 @@ angular.module('datatable', [])
         editElement.detach();
         
         scope.$apply(function() {
+          alert(angular.toJson(scope));
+        	
           var oldValue = modelAccess(scope);
           var newValue = scope.datatable_edit_value;
           
@@ -229,11 +231,11 @@ angular.module('datatable', [])
       });
       
       editElement.keydown(function(e) {
-    	if(e.keyCode == 27) {
+    	if(e.keyCode === 27) {
     	  scope.$apply(function() {scope.datatable_edit_value = modelAccess(scope)});
     	}
-    	  
-    	if(e.keyCode == 13 || e.keyCode == 27) {
+    	
+    	if(e.keyCode === 13 || e.keyCode === 27) {
     	  editElement.blur();
     	}
       });
