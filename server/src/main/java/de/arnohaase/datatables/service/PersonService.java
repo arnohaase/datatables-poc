@@ -121,14 +121,14 @@ public class PersonService {
         if (validate(p).isEmpty()) {
             return;
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("constraint violation - call validate(...) for details");
     }
 
     public void checkValidation(Collection<Person> p) {
         if (validate(p).isEmpty()) {
             return;
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("constraint violation - call validate(...) for details");
     }
     
     public Set<ConstraintViolation<Person>> validate(Person person) {
