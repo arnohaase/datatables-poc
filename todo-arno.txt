@@ -4,8 +4,6 @@ http://perfectionkills.com/understanding-delete/
 
 todo
 ----
-* Edit des Geschlechts funktioniert nicht
-
 * sortieren:
   * nach mehreren Spalten
 * filtern

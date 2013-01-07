@@ -39,3 +39,14 @@ select.inplace-editable {
 .btn-group > button.btn.icon-button {
   padding: 4px 6px;
 }
+
+tr.row-dirty, tr.row-new {
+  background-color: #e0ffd0;
+}
+
+tr.row-deleted {
+  filter: alpha(opacity=40);
+  -moz-opacity:0.4;
+  -khtml-opacity: 0.4;
+  opacity: 0.4;
+}

@@ -266,6 +266,20 @@ function PagingCtrl($scope, $http, $filter) {
 	  });
 	}
 	
+	$scope.rowClass = function(row) {
+	  var status = $scope.rowStatus(row);
+	  if(status === 'dirty') {
+		return "row-dirty";
+	  }
+	  if(status === 'new') {
+		return "row-new";
+	  }
+	  if(status === 'deleted') {
+		return "row-deleted";
+	  }
+	  return "row-clean";
+	}
+	
 	$scope.refresh();
 }
 
