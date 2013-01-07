@@ -233,6 +233,7 @@ function PagingCtrl($scope, $http, $filter) {
 		var p = $scope.persons[i];
 		var status = $scope.rowStatus(p);
 		if(status === 'new') {
+          delete p.datatable_inplace_internal;
 		  inserts.push(p);
 		}
 		if(status === 'deleted') {
@@ -249,36 +250,80 @@ function PagingCtrl($scope, $http, $filter) {
 	  
 	  $http.post('rest/person/push', {'inserts': inserts, 'updates': updates, 'deletes': deletes})
 	  .success(function(data) {
-		for(var i=0; i<inserts.length; i++) {
-		  inserts[i].oid = data.oids[i];
-		  delete inserts[i].datatable_inplace_internal;
+		if(! data.insertViolations && !data.updateViolations) {
+		  // constraint checks passed
+          for(var i=0; i<inserts.length; i++) {
+			inserts[i].oid = data.oids[i];
+			delete inserts[i].datatable_inplace_internal;
+		  }
+		}
+		else {
+		  alert('Constraint-Verletzungen');
+		  for(var i=0; i<inserts.length; i++) {
+			inserts[i].datatable_inplace_internal = {isNew: true};
+		  }
+	      for(var i=0; i<updates.length; i++) {
+		    updates[i].datatable_inplace_internal = {dirty: true};
+		  }
+		  for(var i=0; i<deletes.length; i++) {
+		    deletes[i].datatable_inplace_internal = {deleted: true};
+		    $scope.persons.push(deletes[i]);
+		  }
+          if (data.insertViolations) {
+	        for(var i=0; i<inserts.length; i++) {
+	    	  if(! inserts[i].datatable_inplace_internal) {
+	    	    inserts[i].datatable_inplace_internal = {};
+	          }
+	    	  if(data.insertViolations[i].violations) {
+	    		inserts[i].datatable_inplace_internal.serverViolations=data.insertViolations[i].violations;
+	    	  }
+            }
+          }
+          if (data.updateViolations) {
+        	for(var i=0; i<updates.length; i++) {
+        	  if(data.updateViolations[i].violations) {
+        	    updates[i].datatable_inplace_internal.serverViolations=data.updateViolations[i].violations;
+        	  }
+        	}
+          }
 		}
 	  })
       .error(function(data, status, headers, config) {
 	    alert('Fehler beim Speichern der Daten: ' + status);
+	    for(var i=0; i<inserts.length; i++) {
+	      inserts[i].datatable_inplace_internal = {isNew: true};
+	    }
 	    for(var i=0; i<updates.length; i++) {
-	      updates[i].datatable_inplace_internal = {dirty: true};
-	      $scope.persons.push(updates[i]);
+	    	updates[i].datatable_inplace_internal = {dirty: true};
 	    }
 	    for(var i=0; i<deletes.length; i++) {
-	      deleted[i].datatable_inplace_internal = {deleted: true};
+	      deletes[i].datatable_inplace_internal = {deleted: true};
 	      $scope.persons.push(deletes[i]);
 	    }
 	  });
 	}
 	
+	$scope.violations = function(row) {
+	  if(! row.datatable_inplace_internal || ! row.datatable_inplace_internal.serverViolations) {
+		return "";
+	  }
+	  return row.datatable_inplace_internal.serverViolations;
+	}
+	
 	$scope.rowClass = function(row) {
+	  var invalid = row.datatable_inplace_internal.serverViolations ? "row-invalid " : "";
+		
 	  var status = $scope.rowStatus(row);
 	  if(status === 'dirty') {
-		return "row-dirty";
+		return invalid + "row-dirty";
 	  }
 	  if(status === 'new') {
-		return "row-new";
+		return invalid + "row-new";
 	  }
 	  if(status === 'deleted') {
 		return "row-deleted";
 	  }
-	  return "row-clean";
+	  return invalid + "row-clean";
 	}
 	
 	$scope.refresh();

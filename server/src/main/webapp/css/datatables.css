@@ -50,3 +50,7 @@ tr.row-deleted {
   -khtml-opacity: 0.4;
   opacity: 0.4;
 }
+
+tr.row-invalid {
+  border: 1px solid red;
+}

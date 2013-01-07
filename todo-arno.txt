@@ -28,7 +28,6 @@ todo
 * Layout / Verschönerung
   * Umgang mit zu breiter Tabelle 
   * Einfügen / Löschen: 'uneven'-class kommt durch einander
-  * new / changed / deleted: graphisch zeigen
 * Aufräumen
   * Zuordnung Land/Sprache: in JSON-Datei auslagern
   * Stadt, Land, Sprache, Geburtstag editieren

@@ -77,7 +77,7 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
     <td></td>
   </tr>
-  <tr ng-class="rowClass(person)" ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+  <tr ng-class="rowClass(person)" title="{{violations(person)}}" ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
     <td ng-hide="combinedName" inplace-editable="person.firstname" inplace-edit-row="person"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
     <td ng-hide="combinedName" inplace-editable="person.lastname" inplace-edit-row="person"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
