@@ -9,7 +9,16 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
@@ -29,7 +38,9 @@ public class PersonService {
 
     private static final Map<Integer, Person> persons = new TreeMap<Integer, Person>();
     private static int nextOid=0;
-
+    
+    private static final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    
     private static final int INITIAL_NUM_PERSONS = 1000;
 
     static {
@@ -108,6 +119,37 @@ public class PersonService {
     private PersonService() {
     }
 
+    public void checkValidation(Person p) {
+        if (validate(p).isEmpty()) {
+            return;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    public void checkValidation(Collection<Person> p) {
+        if (validate(p).isEmpty()) {
+            return;
+        }
+        throw new IllegalArgumentException();
+    }
+    
+    public Set<ConstraintViolation<Person>> validate(Person person) {
+        return validatorFactory.getValidator().validate(person);
+    }
+    
+    public Map<Person, Set<ConstraintViolation<Person>>> validate(Collection<Person> persons) {
+        final Map<Person, Set<ConstraintViolation<Person>>> result = new HashMap<Person, Set<ConstraintViolation<Person>>>();
+        
+        for (Person p: persons) {
+            final Set<ConstraintViolation<Person>> cv = validate(p);
+            if (! cv.isEmpty()) {
+                result.put(p, cv);
+            }
+        }
+        
+        return result;
+    }
+    
     public synchronized int getNumPersons() {
         return persons.size();
     }
@@ -117,6 +159,7 @@ public class PersonService {
     }
 
     public synchronized void insert(Person p) {
+        checkValidation(p);
         if(p.getOid() != null) {
             throw new IllegalArgumentException("was already inserted");
         }
@@ -125,8 +168,8 @@ public class PersonService {
     }
 
     public synchronized void update(Person p) {
-        System.out.println("!!!!!!!!!!!!!!!!!!");
         log.info("updating person " + p.getOid());
+        checkValidation(p);
         if (!persons.containsKey(p.getOid())) {
             throw new IllegalArgumentException("does not exist");
         }

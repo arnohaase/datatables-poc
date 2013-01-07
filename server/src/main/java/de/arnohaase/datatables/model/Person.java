@@ -3,6 +3,9 @@ package de.arnohaase.datatables.model;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.*;
+
+import org.hibernate.validator.constraints.Length;
 
 
 @XmlRootElement
@@ -10,12 +13,14 @@ public class Person implements Serializable {
 	private Integer oid;
 	private String firstname;
 	private String lastname;
+	@Length(min=2, max=30)
 	private String street;
 	private String zip;
 	private String city;
 	private String country;
 	private String locale;
 	private String birthday;
+	@NotNull
 	private Sex sex;
 	private double income;
     public Integer getOid() {
