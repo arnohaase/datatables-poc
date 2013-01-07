@@ -169,10 +169,14 @@ angular.module('datatable', [])
     	var numDecimals = parseInt(config.substr(2,1));
     	
         ctrl.$parsers.push(function (value) {
-          var result = $filter('numberParse')(value || '', thousandsSep, decimalSep);
-          return result;
+          if(! value) 
+        	return undefined;
+          return $filter('numberParse')(value || '', thousandsSep, decimalSep);
         });
         ctrl.$formatters.push(function(value) {
+          if (! value)
+        	return undefined;
+        	
           var pattern = '#' + thousandsSep + '##0' + decimalSep;
           for (var i=0; i<numDecimals; i++) {
         	pattern += '0';  
@@ -195,22 +199,22 @@ angular.module('datatable', [])
       var modelAccess = $parse(attrs['inplaceEditable']);
       var rowAccess = $parse(attrs['inplaceEditRow']);
       
-      element.click(function() {
+      var clickHandler = function() {
+    	element.unbind('click');
     	scope.$apply(function() {
     	  scope.datatable_edit_value = modelAccess(scope);
     	  displayElement.hide();
     	  element.append(editElement);
     	  editElement.focus();
     	});
-      });
+      }; 
       
       editElement.blur (function() {
+        element.bind('click', clickHandler);
         displayElement.show(); 
         editElement.detach();
         
         scope.$apply(function() {
-          alert(angular.toJson(scope));
-        	
           var oldValue = modelAccess(scope);
           var newValue = scope.datatable_edit_value;
           
@@ -239,7 +243,9 @@ angular.module('datatable', [])
     	  editElement.blur();
     	}
       });
+
       editElement.detach();
+      element.bind('click', clickHandler);
     };
 })
 .directive('sortable', function($compile) {

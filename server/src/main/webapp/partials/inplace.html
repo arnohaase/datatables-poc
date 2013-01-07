@@ -83,10 +83,7 @@
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
     <td style="text-align:center;" inplace-editable="person.sex" inplace-edit-row="person">
       <div>{{person.sex | sexSymbol}}</div>
-      <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;">
-        <option value="m">m</option>
-        <option value="f">f</option>
-      </select> 
+      <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
     </td>
     <td inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}} {{person.oid}}</td>
