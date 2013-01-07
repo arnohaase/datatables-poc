@@ -41,6 +41,7 @@ public class PersonService {
     
     private static final int INITIAL_NUM_PERSONS = 1000;
 
+    private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     static {
     	for (char c = 'A'; c <= 'Z'; c++)
     		UPPERCASE[c - 'A'] = c;
@@ -55,7 +56,6 @@ public class PersonService {
         }
     }
 
-    static DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	static Person createPerson(int i) {
 		Person p = new Person();
 
