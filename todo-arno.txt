@@ -2,6 +2,9 @@ Stichkpunktsammlung für Arno
 ============================
 http://perfectionkills.com/understanding-delete/
 
+degraph / schauder
+yed / graphml
+
 todo
 ----
 * sortieren:
@@ -14,8 +17,8 @@ todo
   * revert-Button für geänderte Zeilen
   * Tooltips
   * Validierung
-  * Dirty-Markierung je Zeile
-  * Dirty-Markierung je Feld
+    * Markierung je Feld
+    * Markierung je Zeile
 * Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
@@ -50,3 +53,5 @@ done
 * in-place-Editierung
   * Input-Felder, Comboboxen
   * Zahlen unter Berücksichtigung der Locale
+* kumulatives Editieren
+  * explizites Speichern von Änderungen

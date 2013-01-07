@@ -205,6 +205,7 @@ function PagingCtrl($scope, $http, $filter) {
 	  
 	  var i;
 	  for (i=0; i<$scope.persons.length; i++) {
+		var newLocale=$scope.persons[i].locale;
 		if (! hasLocale($scope.persons[i].locale)) {
 		  result.push($scope.persons[i].locale);
 		}

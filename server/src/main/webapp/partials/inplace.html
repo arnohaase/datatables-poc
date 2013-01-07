@@ -87,8 +87,13 @@
     </td>
     <td inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td><img src="{{person.country | flagForCountry}}"/> {{person.country}}</td>
-    <td style="text-align:center;"><img src="{{person.locale | flagForLocale}}"></img></td>
+    <td inplace-editable="person.country" inplace-edit-row="person"><div><img src="{{person.country | flagForCountry}}"/> {{person.country}}</div><input ng-model="datatable_edit_value"></td>
+    <td style="text-align:center;" inplace-editable="person.locale" inplace-edit-row="person">
+      <img src="{{person.locale | flagForLocale}}"></img>
+      <select ng-model="datatable_edit_value" style="background: url('{{datatable_edit_value | flagForLocale}}') no-repeat 50% 50%;">
+        <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
+      </select>
+    </td>
     <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
     <td inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
     <td>
