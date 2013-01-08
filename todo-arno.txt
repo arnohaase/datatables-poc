@@ -15,10 +15,8 @@ todo
 * in-place Editieren
   * undelete-Button für gelöschte Zeilen
   * revert-Button für geänderte Zeilen
-  * Tooltips
-  * Validierung
-    * Markierung je Feld
-    * Markierung je Zeile
+  * client side validation
+  * repaint nach dem Speichern
 * Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
@@ -54,3 +52,7 @@ done
   * Zahlen unter Berücksichtigung der Locale
 * kumulatives Editieren
   * explizites Speichern von Änderungen
+* Constraint-Checks
+  * server side checks
+  * Anzeige je Zeile und je Feld
+  
