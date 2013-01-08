@@ -59,7 +59,7 @@
                         </f:facet>
                         <h:outputText id="city" value="#{person.zip} #{person.city}"/>
                     </rich:column>
-                    <rich:column id="countryCol" style="text-align: center">
+                    <rich:column id="countryCol">
                         <f:facet name="header">
                             <h:outputText id="countryHeader" value="#{text['person.country']}" />
                         </f:facet>
@@ -73,11 +73,11 @@
                         <h:graphicImage value="/img/flags/#{person.locale.substring(3, 5).toLowerCase()}.png"/>
                         <h:outputText id="language" value="&nbsp;#{person.locale}"/>
                     </rich:column>
-                    <rich:column id="birthdateCol" style="text-align: center">
+                    <rich:column id="birthdayCol" style="text-align: center">
                         <f:facet name="header">
-                            <h:outputText id="birthdateHeader" value="#{text['person.birthdate']}" />
+                            <h:outputText id="birthdayHeader" value="#{text['person.birthday']}" />
                         </f:facet>
-                        <h:outputText id="birthdate" value="#{person.birthdate}">
+                        <h:outputText id="birthday" value="#{person.birthday}">
                             <f:convertDateTime type="date"/>
                         </h:outputText>
                     </rich:column>

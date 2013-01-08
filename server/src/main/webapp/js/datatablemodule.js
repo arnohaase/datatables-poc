@@ -36,7 +36,7 @@ angular.module('datatable', [])
     if(input === 'de_AT') {
     	return 'img/flags/at.png';
     }
-    if(input === 'en_UK') {
+    if(input === 'en_GB' || input === 'en_UK') {
       return 'img/flags/gb.png';
     }
     if(input === 'en_US') {
@@ -53,13 +53,13 @@ angular.module('datatable', [])
 })
 .filter('flagForCountry', function() {
 	return function(input) {
-		if(input === 'Deutschland') {
+		if(input && input.toLowerCase() === 'deutschland') {
 			return 'img/flags/de.png';
 		}
-		if(input === 'Great Britain') {
+		if(input && (input.toLowerCase() === 'great britain' || input.toLowerCase() === 'grossbritannien')) {
 			return 'img/flags/gb.png';
 		}
-		if(input === 'France') {
+		if(input && (input.toLowerCase() === 'france' || input.toLowerCase() === 'frankreich')) {
 			return 'img/flags/fr.png';
 		}
 		return 'img/flags/__.png';
