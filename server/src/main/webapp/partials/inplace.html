@@ -95,7 +95,7 @@
       </select>
     </td>
     <td title="{{violations(person, 'birthday')}}" ng-class="cellClass(person, 'birthday')" style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
-    <td title="{{violations(person, 'income')}}" ng-class="cellClass(person, 'income')" inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
+    <td title="{{violations(person, 'income')}}" ng-class="cellClass(person, 'income')" inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}} €</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
     <td>
       <button class="btn" style="padding:1px 2px;" ng-click="addPerson(person)"><img src="img/icons/add.png"></button>
       <button class="btn" style="padding:1px 2px;" ng-click="deletePerson(person)"><img src="img/icons/delete.png"></button>
