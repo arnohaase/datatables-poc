@@ -46,7 +46,7 @@
     <th class="separateNames" style="width:170px;" sortable="lastname" sort-model="personSortModel">Nachname</th>
     <th class="combinedName"  style="width:286px;" sortable="lastname firstname" sort-model="personSortModel">Name</th>
     <th style="width:80px;" sortable="sex" sort-model="personSortModel">{{'m' | sexSymbol}} / {{'f' | sexSymbol}}</th>
-    <th style="width:150px;" sortable="street" sort-model="personSortModel">Straße</th>
+    <th style="width:220px;" sortable="street" sort-model="personSortModel">Straße</th>
     <th style="width:250px;" sortable="zip city" sort-model="personSortModel">PLZ / Ort</th>
     <th style="width:200px;" sortable="country" sort-model="personSortModel">Land</th>
     <th style="width:100px;" sortable="locale" sort-model="personSortModel">Sprache</th>
@@ -77,25 +77,25 @@
     <td><input class="filter" placeholder="Filter" ng-model="searchPerson.income"></td>
     <td></td>
   </tr>
-  <tr ng-class="rowClass(person)" title="{{violations(person)}}" ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
-    <td ng-hide="combinedName" inplace-editable="person.firstname" inplace-edit-row="person"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
-    <td ng-hide="combinedName" inplace-editable="person.lastname" inplace-edit-row="person"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
+  <tr ng-class="rowClass(person)" ng-class-even="'table-row-even'" ng-repeat="person in persons | filter:searchPerson | filter:miscFilters | orderBy:personSortModel.orderBy() | paged:offset:rowsPerPage">
+    <td title="{{violations(person, 'firstname')}}" ng-class="cellClass(person, 'firstname')"ng-hide="combinedName" inplace-editable="person.firstname" inplace-edit-row="person"><div>{{person.firstname}}</div><input ng-model="datatable_edit_value"></td>
+    <td title="{{violations(person, 'lastname')}}" ng-class="cellClass(person, 'lastname')" ng-hide="combinedName" inplace-editable="person.lastname" inplace-edit-row="person"><div>{{person.lastname}}</div><input ng-model="datatable_edit_value"></td>
     <td ng-show="combinedName">{{person.firstname}} {{person.lastname}}</td>
-    <td style="text-align:center;" inplace-editable="person.sex" inplace-edit-row="person">
+    <td title="{{violations(person, 'sex')}}" ng-class="cellClass(person, 'sex')" style="text-align:center;" inplace-editable="person.sex" inplace-edit-row="person">
       <div>{{person.sex | sexSymbol}}</div>
       <select ng-model="datatable_edit_value" style="text-align:center;padding-left:13px;" ng-options="s | sexSymbol for s in ['m', 'f']">
     </td>
-    <td inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
+    <td title="{{violations(person, 'street')}}" ng-class="cellClass(person, 'street')" inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td inplace-editable="person.country" inplace-edit-row="person"><div><img src="{{person.country | flagForCountry}}"/> {{person.country}}</div><input ng-model="datatable_edit_value"></td>
-    <td style="text-align:center;" inplace-editable="person.locale" inplace-edit-row="person">
+    <td title="{{violations(person, 'country')}}" ng-class="cellClass(person, 'country')" inplace-editable="person.country" inplace-edit-row="person"><div><img src="{{person.country | flagForCountry}}"/> {{person.country}}</div><input ng-model="datatable_edit_value"></td>
+    <td title="{{violations(person, 'locale')}}" ng-class="cellClass(person, 'locale')"style="text-align:center;" inplace-editable="person.locale" inplace-edit-row="person">
       <img src="{{person.locale | flagForLocale}}"></img>
       <select ng-model="datatable_edit_value" style="background: url('{{datatable_edit_value | flagForLocale}}') no-repeat 50% 50%;">
         <option ng-repeat="l in locales()" value="{{l}}" style="background: url('{{l | flagForLocale}}') no-repeat 50% 50%;"></option>
       </select>
     </td>
-    <td style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
-    <td inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
+    <td title="{{violations(person, 'birthday')}}" ng-class="cellClass(person, 'birthday')" style="text-align:center;">{{person.birthday | dateFormat:'dd.MM.yyyy'}}</td>
+    <td title="{{violations(person, 'income')}}" ng-class="cellClass(person, 'income')" inplace-editable="person.income" inplace-edit-row="person" style="text-align:right;"><div>{{person.income | numberFormat:'#.##0,00'}}</div><input style="text-align:right" ng-model="datatable_edit_value" to-number=".,2"></td>
     <td>
       <button class="btn" style="padding:1px 2px;" ng-click="addPerson(person)"><img src="img/icons/add.png"></button>
       <button class="btn" style="padding:1px 2px;" ng-click="deletePerson(person)"><img src="img/icons/delete.png"></button>

@@ -271,9 +271,6 @@ function PagingCtrl($scope, $http, $filter) {
 		  }
           if (data.insertViolations) {
 	        for(var i=0; i<inserts.length; i++) {
-	    	  if(! inserts[i].datatable_inplace_internal) {
-	    	    inserts[i].datatable_inplace_internal = {};
-	          }
 	    	  if(data.insertViolations[i].violations) {
 	    		inserts[i].datatable_inplace_internal.serverViolations=data.insertViolations[i].violations;
 	    	  }
@@ -303,11 +300,35 @@ function PagingCtrl($scope, $http, $filter) {
 	  });
 	}
 	
-	$scope.violations = function(row) {
+	$scope.violations = function(row, prop) {
 	  if(! row.datatable_inplace_internal || ! row.datatable_inplace_internal.serverViolations) {
 		return "";
 	  }
-	  return row.datatable_inplace_internal.serverViolations;
+	  
+	  var result=[];
+	  for(var i=0; i<row.datatable_inplace_internal.serverViolations.length; i++) {
+		  var v = row.datatable_inplace_internal.serverViolations[i];
+		  if(v.prop === prop) {
+			  result.push(v.msg);
+		  }
+	  }
+	  
+	  return result.join('\n');
+	}
+	
+	$scope.cellClass = function(row, prop) {
+		if(! row.datatable_inplace_internal || ! row.datatable_inplace_internal.serverViolations) {
+			return "";
+		}
+
+		var v = row.datatable_inplace_internal.serverViolations;
+		for(var i=0; i<v.length; i++) {
+			if(v[i].prop === prop) {
+				return "cell-invalid";
+			}
+		}
+		
+		return "";
 	}
 	
 	$scope.rowClass = function(row) {

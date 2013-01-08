@@ -52,5 +52,10 @@ tr.row-deleted {
 }
 
 tr.row-invalid {
+  border: 1px dashed #ffd0d0;
+}
+
+td.cell-invalid {
   border: 1px solid red;
+  background-color: #ffe0e0;
 }

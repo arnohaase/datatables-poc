@@ -20,6 +20,7 @@ import de.arnohaase.datatables.model.PersonChanges;
 import de.arnohaase.datatables.model.PersonList;
 import de.arnohaase.datatables.model.PushResult;
 import de.arnohaase.datatables.model.ViolationList;
+import de.arnohaase.datatables.model.ViolationList.Violation;
 import de.arnohaase.datatables.service.PersonService;
 
 
@@ -58,11 +59,11 @@ public class PersonRestService {
         final ConstraintCheckResult result = new ConstraintCheckResult();
         
         for (Person p: input) {
-            final ArrayList<String> vl = new ArrayList<String>();
+            final ArrayList<Violation> vl = new ArrayList<Violation>();
             
             if(newViolations.containsKey(p)) {
                 for(ConstraintViolation<Person> cv: newViolations.get(p)) {
-                    vl.add(cv.getMessage());
+                    vl.add(new Violation(getProperty(cv), cv.getMessage()));
                     result.valid = false;
                 }
             }
@@ -70,6 +71,20 @@ public class PersonRestService {
         }
         
         return result;
+    }
+    
+    private String getProperty(ConstraintViolation<?> cv) {
+        final StringBuilder result = new StringBuilder();
+        
+        for(javax.validation.Path.Node node: cv.getPropertyPath()) {
+            if(result.length() > 0) {
+                result.append(".");
+            }
+            
+            result.append(node.getName());
+        }
+        
+        return result.toString();
     }
     
     @Path("/push")
