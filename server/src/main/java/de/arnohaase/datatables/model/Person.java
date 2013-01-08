@@ -1,9 +1,6 @@
 package de.arnohaase.datatables.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -28,7 +25,7 @@ public class Person implements Serializable {
 	private String city;
 	private Country country;
 	private String locale;
-	private Date birthdate;
+	private Date birthday;
 	@NotNull
 	private Sex sex;
 	private double income;
@@ -89,24 +86,11 @@ public class Person implements Serializable {
         this.locale = locale;
     }
 
-    static DateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
-    /** Die JS-Variante scheint dies zu benötigen. */
-    public String getBirthday() {
-        return dFormat.format(birthdate);
-    }
-    public void setBirthday(String birthday) {
-        try {
-			birthdate = dFormat.parse(birthday);
-		} catch (ParseException px) { // TODO bessere Lösung?
-			log.error("invalid date format: " + birthday, px);
-		}
-    }
-
-    public Date getBirthdate() {
-		return birthdate;
+    public Date getBirthday() {
+		return birthday;
 	}
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public Sex getSex() {

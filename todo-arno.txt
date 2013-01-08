@@ -2,6 +2,9 @@ Stichkpunktsammlung für Arno
 ============================
 http://perfectionkills.com/understanding-delete/
 
+jqtouch
+slidfast
+
 degraph / schauder
 yed / graphml
 
@@ -26,10 +29,14 @@ todo
 * Layout / Verschönerung
   * Umgang mit zu breiter Tabelle 
   * Einfügen / Löschen: 'uneven'-class kommt durch einander
+  * auf kleinem Display (Handy) Header-Bereich anders formatieren
 * Aufräumen
   * Zuordnung Land/Sprache: in JSON-Datei auslagern
   * Stadt, Land, Sprache, Geburtstag editieren
   * Rückfrage vor Refresh, wenn dirty
+  
+* Laden mit Paging
+* Probieren im Mobile Device
   
 done
 ----

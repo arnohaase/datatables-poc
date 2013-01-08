@@ -65,7 +65,7 @@ public class PersonService {
 		p.setCity(randomString(6) + "stadt");
 		p.setCountry(randomEnum(Country.class));
 		p.setLocale(getLocale(i));
-		p.setBirthdate(new Date(_01011960 + rand.nextInt(PERIOD) * 1000L));
+		p.setBirthday(new Date(_01011960 + rand.nextInt(PERIOD) * 1000L));
 		p.setSex(randomEnum(Sex.class));
 		p.setIncome(40000 + i*123471 % 8000000 / 100.0);
 		return p;

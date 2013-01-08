@@ -61,11 +61,11 @@
                         </f:facet>
                         <h:outputText id="language" value="#{person.locale}"/>
                     </rich:column>
-                    <rich:column id="birthdateCol" style="text-align: center">
+                    <rich:column id="birthdayCol" style="text-align: center">
                         <f:facet name="header">
-                            <h:outputText id="birthdateHeader" value="#{text['person.birthdate']}" />
+                            <h:outputText id="birthdayHeader" value="#{text['person.birthday']}" />
                         </f:facet>
-                        <h:outputText id="birthdate" value="#{person.birthdate}">
+                        <h:outputText id="birthday" value="#{person.birthday}">
                             <f:convertDateTime type="date"/>
                         </h:outputText>
                     </rich:column>
