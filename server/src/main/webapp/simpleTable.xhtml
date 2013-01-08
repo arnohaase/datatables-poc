@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">RichFaces Sample</ui:define>
+
+        <ui:define name="body">
+            <h:form id="personsForm">
+                <rich:dataTable id="persons" value="#{personBean.persons}" var="person" 
+                        rows="#{personBean.rows}">
+                    <f:facet name="header">
+                        <h:outputText value="#{text['person.tableheader']}" />
+                    </f:facet>
+                    <rich:column id="lastnameCol">
+	                    <f:facet name="header">
+	                        <h:outputText id="lastnameHeader" value="#{text['person.lastname']}" />
+	                    </f:facet>
+	                    <h:outputText id="lastname" value="#{person.lastname}"/>
+                    </rich:column>
+                    <rich:column id="firstnameCol">
+                        <f:facet name="header">
+                            <h:outputText id="firstnameHeader" value="#{text['person.firstname']}" />
+                        </f:facet>
+                        <h:outputText id="firstname" value="#{person.firstname}"/>
+                    </rich:column>
+                    <rich:column id="sexCol" style="text-align: center">
+                        <f:facet name="header">
+                            <h:outputText id="sexHeader" value="#{text['person.sex']}" />
+                        </f:facet>
+                        <ui:param name="skey" value="person.sex.#{person.sex}"/>
+                        <h:outputText id="sex" value="#{text[skey]}"/>
+                    </rich:column>
+                    <rich:column id="streetCol">
+                        <f:facet name="header">
+                            <h:outputText id="streetHeader" value="#{text['person.street']}" />
+                        </f:facet>
+                        <h:outputText id="street" value="#{person.street}"/>
+                    </rich:column>
+                    <rich:column id="cityCol">
+                        <f:facet name="header">
+                            <h:outputText id="cityHeader" value="#{text['person.city']}" />
+                        </f:facet>
+                        <h:outputText id="city" value="#{person.city}"/>
+                    </rich:column>
+                    <rich:column id="countryCol" style="text-align: right">
+                        <f:facet name="header">
+                            <h:outputText id="countryHeader" value="#{text['person.country']}" />
+                        </f:facet>
+                        <h:outputText id="country" value="#{person.country}"/>
+                    </rich:column>
+                    <rich:column id="languageCol">
+                        <f:facet name="header">
+                            <h:outputText id="languageHeader" value="#{text['person.language']}" />
+                        </f:facet>
+                        <h:outputText id="language" value="#{person.locale}"/>
+                    </rich:column>
+                    <rich:column id="birthdateCol" style="text-align: center">
+                        <f:facet name="header">
+                            <h:outputText id="birthdateHeader" value="#{text['person.birthdate']}" />
+                        </f:facet>
+                        <h:outputText id="birthdate" value="#{person.birthdate}">
+                            <f:convertDateTime type="date"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column id="salaryCol" style="text-align: right">
+                        <f:facet name="header">
+                            <h:outputText id="salaryHeader" value="#{text['person.salary']}" />
+                        </f:facet>
+                        <h:outputText id="salary" value="#{person.income}">
+                            <f:convertNumber currencySymbol="€" groupingUsed="true"
+                                maxFractionDigits="2" type="currency" />
+                        </h:outputText>
+                    </rich:column>
+                </rich:dataTable>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</body>
+</html>

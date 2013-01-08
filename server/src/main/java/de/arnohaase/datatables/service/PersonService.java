@@ -1,7 +1,5 @@
 package de.arnohaase.datatables.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -20,6 +18,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import de.arnohaase.datatables.model.Country;
 import de.arnohaase.datatables.model.Person;
 import de.arnohaase.datatables.model.Sex;
 import de.arnohaase.datatables.util.GenericCloner;
@@ -36,12 +35,11 @@ public class PersonService {
 
     private static final Map<Integer, Person> persons = new TreeMap<Integer, Person>();
     private static int nextOid=0;
-    
+
     private static final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-    
+
     private static final int INITIAL_NUM_PERSONS = 1000;
 
-    private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     static {
     	for (char c = 'A'; c <= 'Z'; c++)
     		UPPERCASE[c - 'A'] = c;
@@ -65,13 +63,9 @@ public class PersonService {
 		p.setStreet(randomString(10) + "straße " + rand.nextInt(100));
 		p.setZip(String.format("%05d", rand.nextInt(100000)));
 		p.setCity(randomString(6) + "stadt");
-		switch(i%3) {
-		case 0: p.setCountry("Deutschland"); break;
-		case 1: p.setCountry("Great Britain"); break;
-		case 2: p.setCountry("France"); break;
-		}
+		p.setCountry(randomEnum(Country.class));
 		p.setLocale(getLocale(i));
-		p.setBirthday(format.format(new Date(_01011960 + rand.nextInt(PERIOD) * 1000L)));
+		p.setBirthdate(new Date(_01011960 + rand.nextInt(PERIOD) * 1000L));
 		p.setSex(randomEnum(Sex.class));
 		p.setIncome(40000 + i*123471 % 8000000 / 100.0);
 		return p;
@@ -130,24 +124,24 @@ public class PersonService {
         }
         throw new IllegalArgumentException("constraint violation - call validate(...) for details");
     }
-    
+
     public Set<ConstraintViolation<Person>> validate(Person person) {
         return validatorFactory.getValidator().validate(person);
     }
-    
+
     public Map<Person, Set<ConstraintViolation<Person>>> validate(Collection<Person> persons) {
         final Map<Person, Set<ConstraintViolation<Person>>> result = new HashMap<Person, Set<ConstraintViolation<Person>>>();
-        
+
         for (Person p: persons) {
             final Set<ConstraintViolation<Person>> cv = validate(p);
             if (! cv.isEmpty()) {
                 result.put(p, cv);
             }
         }
-        
+
         return result;
     }
-    
+
     public synchronized int getNumPersons() {
         return persons.size();
     }
