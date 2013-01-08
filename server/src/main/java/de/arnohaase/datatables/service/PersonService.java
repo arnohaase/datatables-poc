@@ -99,7 +99,7 @@ public class PersonService {
         switch(i%6) {
         case 0: return "de_DE";
         case 1: return "de_AT";
-        case 2: return "en_UK";
+        case 2: return "en_GB";
         case 3: return "en_US";
         case 4: return "en_AU";
         default: return "fr_FR";

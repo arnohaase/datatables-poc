@@ -26,11 +26,6 @@ public enum Country {
         return _iso3166;
     }
 
-    @Override
-    public String toString() {
-        return _name;
-    }
-
     static Map<String, Country> _byIso3166;
     static Country byIso3166(String iso3166) {
         if (_byIso3166 == null) {

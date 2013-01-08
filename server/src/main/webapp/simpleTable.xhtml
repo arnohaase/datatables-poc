@@ -9,11 +9,21 @@
 <body>
     <ui:composition template="/templates/template.xhtml">
 
-        <ui:define name="title">RichFaces Sample</ui:define>
+        <ui:define name="title">RichFaces Tabelle</ui:define>
 
         <ui:define name="body">
             <h:form id="personsForm">
-                <rich:dataTable id="persons" value="#{personBean.persons}" var="person" 
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="rowSelect" value="#{text['table.rows']}:&nbsp;"/>
+                    <rich:select id="rowSelect" value="#{personBean.rows}">
+                        <f:selectItem itemValue="20" itemLabel="20"/>
+                        <f:selectItem itemValue="50" itemLabel="50"/>
+                        <f:selectItem itemValue="100" itemLabel="100"/>
+                        <f:selectItem itemValue="1000" itemLabel="1000"/>
+                        <a4j:ajax event="selectitem" render="personsTable" />
+                    </rich:select>
+                </h:panelGrid>
+                <rich:dataTable id="personsTable" value="#{personBean.persons}" var="person" 
                         rows="#{personBean.rows}">
                     <f:facet name="header">
                         <h:outputText value="#{text['person.tableheader']}" />
@@ -47,19 +57,21 @@
                         <f:facet name="header">
                             <h:outputText id="cityHeader" value="#{text['person.city']}" />
                         </f:facet>
-                        <h:outputText id="city" value="#{person.city}"/>
+                        <h:outputText id="city" value="#{person.zip} #{person.city}"/>
                     </rich:column>
-                    <rich:column id="countryCol" style="text-align: right">
+                    <rich:column id="countryCol" style="text-align: center">
                         <f:facet name="header">
                             <h:outputText id="countryHeader" value="#{text['person.country']}" />
                         </f:facet>
-                        <h:outputText id="country" value="#{person.country}"/>
+                        <h:graphicImage value="/img/flags/#{person.country.iso3166.toLowerCase()}.png"/>
+                        <h:outputText id="country" value="&nbsp;#{person.country.name}"/>
                     </rich:column>
                     <rich:column id="languageCol">
                         <f:facet name="header">
                             <h:outputText id="languageHeader" value="#{text['person.language']}" />
                         </f:facet>
-                        <h:outputText id="language" value="#{person.locale}"/>
+                        <h:graphicImage value="/img/flags/#{person.locale.substring(3, 5).toLowerCase()}.png"/>
+                        <h:outputText id="language" value="&nbsp;#{person.locale}"/>
                     </rich:column>
                     <rich:column id="birthdateCol" style="text-align: center">
                         <f:facet name="header">
