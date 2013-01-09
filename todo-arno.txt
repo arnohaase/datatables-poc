@@ -10,6 +10,10 @@ yed / graphml
 
 todo
 ----
+* i18n (exemplarisch)
+  * Combobox für Live-Umschaltung
+  * http://docs.angularjs.org/guide/i18n#!
+  * Translation-Filter
 * sortieren:
   * nach mehreren Spalten
 * filtern
@@ -23,7 +27,6 @@ todo
 * Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"
-* Zeilen alternierend hinterlegen
 * Angular hat dateFilter-Service --> Formatierung?!
 * numPages() == 0 --> 'keine Datensätze' statt Tabelle (und statt '1/0')
 * Layout / Verschönerung
@@ -34,8 +37,11 @@ todo
   * Zuordnung Land/Sprache: in JSON-Datei auslagern
   * Stadt, Land, Sprache, Geburtstag editieren
   * Rückfrage vor Refresh, wenn dirty
+
+* was ist an der in-place-Variante so langsam?
   
-* Laden mit Paging
+* nur aktuelle Page laden
+* Spaltenauswahl, Detail-Dialog 'onclick' 
 * Probieren im Mobile Device
   
 done

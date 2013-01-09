@@ -36,7 +36,7 @@ angular.module('datatable', [])
     if(input === 'de_AT') {
     	return 'img/flags/at.png';
     }
-    if(input === 'en_GB' || input === 'en_UK') {
+    if(input === 'en_GB') {
       return 'img/flags/gb.png';
     }
     if(input === 'en_US') {
