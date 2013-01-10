@@ -13,7 +13,6 @@
 
         <ui:define name="body">
             <h:form id="personsForm">
-                <h:panelGrid columns="2">
                     <h:outputLabel for="rowSelect" value="#{text['table.rows']}:&nbsp;"/>
                     <rich:select id="rowSelect" value="#{personBean.rows}">
                         <f:selectItem itemValue="20" itemLabel="20"/>
@@ -22,7 +21,6 @@
                         <f:selectItem itemValue="1000" itemLabel="1000"/>
                         <a4j:ajax event="selectitem" render="personsTable" />
                     </rich:select>
-                </h:panelGrid>
                 <rich:dataTable id="personsTable" value="#{personBean.persons}" var="person" 
                         rows="#{personBean.rows}">
                     <f:facet name="header">
@@ -63,8 +61,9 @@
                         <f:facet name="header">
                             <h:outputText id="countryHeader" value="#{text['person.country']}" />
                         </f:facet>
-                        <h:graphicImage value="/img/flags/#{person.country.iso3166.toLowerCase()}.png"/>
-                        <h:outputText id="country" value="&nbsp;#{person.country.name}"/>
+                        <h:graphicImage value="/img/flags/#{person.country.toString().toLowerCase()}.png"/>
+                        <ui:param name="country" value="country.#{person.country}"/>
+                        <h:outputText id="country" value="&nbsp;#{text[country]}"/>
                     </rich:column>
                     <rich:column id="languageCol">
                         <f:facet name="header">
