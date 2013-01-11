@@ -5,6 +5,8 @@ http://perfectionkills.com/understanding-delete/
 jqtouch
 slidfast
 
+http://bootboxjs.com/
+
 degraph / schauder
 yed / graphml
 
@@ -24,6 +26,7 @@ todo
   * revert-Button für geänderte Zeilen
   * client side validation
   * repaint nach dem Speichern
+  * gelöscht / dirty angezeigt: Tabellenzeilen rücken zusammen --> ?!?!?
 * Klick auf Zeile --> Pop-Up
 * 'inkrementelles' laden - zuerst die ersten 50 Datensätze holen, parallel dazu den Rest ab 50 und dann anhängen --> Race Conditions, Sonderfälle
 * Anzeige "Daten werden geladen"

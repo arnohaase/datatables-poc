@@ -84,7 +84,10 @@
     </td>
     <td title="{{violations(person, 'street')}}" ng-class="cellClass(person, 'street')" inplace-editable="person.street" inplace-edit-row="person"><div>{{person.street}}</div><input ng-model="datatable_edit_value"></td>
     <td>{{person.zip}} {{person.city}}</td>
-    <td title="{{violations(person, 'country')}}" ng-class="cellClass(person, 'country')" inplace-editable="person.country" inplace-edit-row="person"><div><img src="{{person.country | flagForCountry}}"/> {{person.country}}</div><input ng-model="datatable_edit_value"></td>
+    <td title="{{violations(person, 'country')}}" ng-class="cellClass(person, 'country')" inplace-editable="person.country" inplace-edit-row="person">
+      <div><img src="{{person.country | flagForCountry}}"/> {{person.country | translate:'country.'}}</div>
+      <input ng-model="datatable_edit_value">
+    </td>
     <td title="{{violations(person, 'locale')}}" ng-class="cellClass(person, 'locale')"style="text-align:center;" inplace-editable="person.locale" inplace-edit-row="person">
       <img src="{{person.locale | flagForLocale}}"></img>
       <select ng-model="datatable_edit_value" style="background: url('{{datatable_edit_value | flagForLocale}}') no-repeat 50% 50%;">
@@ -96,7 +99,8 @@
     <td>
       <button class="btn" style="padding:1px 2px;" ng-click="addPerson(person)"><img src="img/icons/add.png"></button>
       <button class="btn" style="padding:1px 2px;" ng-click="deletePerson(person)"><img src="img/icons/delete.png"></button>
-      <i style="margin-top:5px;" class="icon {{rowStatusIcon(person)}}"></i>
+      <button class="btn" style="padding:1px 2px;" ng-click="undoPerson(person, $index)" ng-show="isUndoable(person)"><img src="img/icons/arrow_undo.png"></button>
+      <i style="margin-top:5px;float:right;" class="icon {{rowStatusIcon(person)}}"></i>
     </td>
   </tr>  
 </table>

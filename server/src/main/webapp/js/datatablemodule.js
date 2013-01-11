@@ -1,4 +1,47 @@
 angular.module('datatable', [])
+.filter('translate', function() {
+	var texts = {
+		"country.AD": "Andorra", 
+		"country.AT": "Österreich", 
+		"country.BE": "Belgien", 
+		"country.CH": "Schweiz",
+		"country.CZ": "Tschechische Republik", 
+		"country.DE": "Deutschland", 
+		"country.DK": "Dänemark", 
+		"country.EE": "Estland", 
+		"country.ES": "Spanien", 
+		"country.FR": "Frankreich", 
+		"country.GB": "Großbritannien",
+		"country.GR": "Griechenland", 
+		"country.IE": "Irland", 
+		"country.IS": "Island", 
+		"country.IT": "Italien", 
+		"country.LT": "Litauen", 
+		"country.LU": "Luxemburg", 
+		"country.LV": "Lettland", 
+		"country.MC": "Monaco", 
+		"country.NL": "Niederlande", 
+		"country.NO": "Norwegen", 
+		"country.PL": "Polen",
+		"country.PT": "Portugal", 
+		"country.SE": "Schweden"	
+	};
+	
+	return function(input, prefix) {
+		if(!input) {
+			return input;
+		}
+		
+		if(prefix) {
+			input = prefix+input;
+		}
+		
+		if(texts[input]) {
+			return texts[input];
+		}
+		return "{" + input + "}";
+	}
+})
 .filter('inGroupsOf', function() { // converts an array into an array of arrays
   return function(input, groupSize) {
     var result = [];
@@ -53,14 +96,8 @@ angular.module('datatable', [])
 })
 .filter('flagForCountry', function() {
 	return function(input) {
-		if(input && input.toLowerCase() === 'deutschland') {
-			return 'img/flags/de.png';
-		}
-		if(input && (input.toLowerCase() === 'great britain' || input.toLowerCase() === 'grossbritannien')) {
-			return 'img/flags/gb.png';
-		}
-		if(input && (input.toLowerCase() === 'france' || input.toLowerCase() === 'frankreich')) {
-			return 'img/flags/fr.png';
+		if(input) {
+		  return 'img/flags/' + (input.toLowerCase()) + ".png";
 		}
 		return 'img/flags/__.png';
 	}
@@ -208,6 +245,10 @@ angular.module('datatable', [])
     	  editElement.focus();
     	});
       }; 
+      
+      editElement.keyup(function() {
+    	editElement.change(); // necessary because Firefox does not 'change' a <select> when the change is done via keyboard
+      });
       
       editElement.blur (function() {
         element.bind('click', clickHandler);

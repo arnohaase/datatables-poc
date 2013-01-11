@@ -110,6 +110,11 @@ function PagingCtrl($scope, $http, $filter) {
 	  return zipCity() && fullName() && changesOnly() && showDeleted();
 	};
 	
+	$scope.isUndoable = function(row) {
+		var rowStatus = $scope.rowStatus(row);
+		
+		return rowStatus === 'deleted' || rowStatus === 'dirty';
+	}
 	$scope.rowStatus = function(row) {
 	  if(!row || !row.datatable_inplace_internal) {
 		return 'clean';
@@ -189,6 +194,14 @@ function PagingCtrl($scope, $http, $filter) {
 	    p.datatable_inplace_internal.deleted=true;
 	  }
 	}
+	$scope.undoPerson = function(p, idx) {
+		if(p.datatable_inplace_internal.deleted) {
+			p.datatable_inplace_internal.deleted=false;
+		}
+		else {
+		  $scope.persons[$scope.offset+idx]=p.datatable_inplace_internal.orig;
+		}
+	};
 	
 	$scope.locales = function() {
 	  var result = [];
